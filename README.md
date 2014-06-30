@@ -18,6 +18,15 @@ This package takes a cordova project directory and compiles the assets into plat
 ------------------------
 ### Installation / Setup
 
+##### Package Installation
+````
+mrt add cordova-loader
+````
+*Note: I would also suggest adding the appcache package. It will cache the platform file after its loaded once as well.*
+
+================
+
+
 ##### Meteor settings file (settings.json)
 ````
 {
@@ -34,15 +43,6 @@ This package takes a cordova project directory and compiles the assets into plat
 * logging: This is optional. Just trying to give some transpency into the package.
 
 *Note: the compiler will only run once due to live reload loop. If you want to rerun the compiler after adding a plugin just delete any of the public/cordova/ files.*
-
-================
-
-
-##### Package Installation
-````
-mrt add cordova-loader
-````
-*Note: I would also suggest adding the appcache package. It will cache the platform file after its loaded once as well.*
 
 ================
 

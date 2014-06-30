@@ -14,6 +14,9 @@ var fs = Npm.require('fs'),
 
 CordovaCompiler = {
 
+  /*
+    Set up the package and determine if the assets need compiled
+  */
   init: function () {
     _this = this;
 
@@ -47,27 +50,38 @@ CordovaCompiler = {
       } else {
         Logger.log('cordova', 'Cordova files already compiled!');
 
-        watch.watchTree(cordovaProjectPath + '/plugins', {ignoreDotFiles: true}, function (f, curr, prev) {
-          if (typeof f == "object" && prev === null && curr === null) {
-            // Finished walking the tree
-          } else {
-            if (fs.existsSync(appPath + '/public/cordova/' + platforms[0] + '.js')) {
-              fs.unlink(appPath + '/public/cordova/' + platforms[0] + '.js' ,function(e){
-                if(!e || (e && e.code === 'EEXIST')){
+        _this.watch();
 
-                } else {
-                console.log(e);
-                }
-              });
-            }             
-          }
-        });
-
-        Logger.log('cordova', 'Watching cordova project plugin directory for changes..');
       }
     }
   },
 
+  /*
+    Watch the cordova plugins directory for changes and trigger a recompile
+  */
+  watch: function () {
+    watch.watchTree(cordovaProjectPath + '/plugins', {ignoreDotFiles: true}, function (f, curr, prev) {
+      if (typeof f == "object" && prev === null && curr === null) {
+        // Finished walking the tree
+      } else {
+        if (fs.existsSync(appPath + '/public/cordova/' + platforms[0] + '.js')) {
+          fs.unlink(appPath + '/public/cordova/' + platforms[0] + '.js' ,function(e){
+            if(!e || (e && e.code === 'EEXIST')){
+
+            } else {
+              console.log(e);
+            }
+          });
+        }             
+      }
+    });
+
+    Logger.log('cordova', 'Watching cordova project plugin directory for changes..');
+  },
+
+  /*
+    Concat and minify the blatform specific bundles
+  */
   packFiles: function (callback) {
     // console.log(cordovaFiles);
 
@@ -111,6 +125,10 @@ CordovaCompiler = {
     callback(null, 'done');
   },
 
+
+  /*
+    Add the platform's core cordova files to the list to be packed
+  */
   addCoreFiles: function (callback) {
     platforms.forEach(function (platform) {
       location = cordovaProjectPath + '/platforms/' + platform + '/www/cordova.js';
@@ -125,6 +143,9 @@ CordovaCompiler = {
     callback(null, 'done');
   },
 
+  /*
+    Add the platform's plugin cordova files to the list to be packed
+  */
   addPluginFiles: function (callback) {
 
     async.each(platforms, function (platform, callback) {

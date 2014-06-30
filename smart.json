@@ -1,0 +1,11 @@
+{
+    "name": "cordova",
+    "description": "Cordova native APIs packaged for meteor",
+    "homepage": "https://github.com/andrewreedy/meteor-cordova",
+    "author": "Andrew Reedy",
+    "version": "0.0.1",
+    "git": "https://github.com/andrewreedy/meteor-cordova.git",
+    "packages": {
+      "log": {}
+    }
+}

@@ -25,7 +25,7 @@ This package aims to solve the shortcomings of the other meteor + cordova packag
   * Compatible with cordova plugins
   * No need for wrapper around cordova
   * Minifies platform specific bundles
-  * Automatically lazy loads specific bundles in client
+  * Automatically lazy loads platform specific bundles in client
   * Watches cordova project plugin directory for changes
 
 ================

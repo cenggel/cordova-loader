@@ -19,14 +19,16 @@ This package aims to solve the shortcomings of the other meteor + cordova packag
 * Cordova Loader: Manages assets for you, fast loading, works with appcache, works with plugins (no wrapper on cordova), minifies platform specific bundles
 
 
-================
+------------------------
 
-###### Requirements
+### Installation / Setup
+
+##### Requirements
 * xcode: 5.1.1
 * cordova: 3.5
 
-------------------------
-### Installation / Setup
+================
+
 
 ##### Package Installation
 ````

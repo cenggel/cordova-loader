@@ -20,7 +20,7 @@ This package aims to solve the shortcomings of the other meteor + cordova packag
 * iFrame: iFrames generally are a pain including slow performance in native apps, glitchy scrolling, and having to wrap cordova
 * Cordova Loader: Manages assets for you, fast loading, works with appcache, works with plugins (no wrapper on cordova), minifies platform specific bundles
 
-------------------------
+================
 
 ## Installation / Setup
 

@@ -15,9 +15,9 @@ This package aims to solve the shortcomings of the other meteor + cordova packag
 
 ###### Comparisson with methods described [here](http://zeroasterisk.com/2013/08/22/meteor-phonegapcordova-roundup-fall-2013/)
 
-* Lazy Loading: Hard to manage all of the cordova dependencies
-* Hijack (Rider): Slow initial load / Can't use appcache / Issues with plugins.
-* iFrame: iFrames generally are a pain including slow performance in native apps, glitchy scrolling, and having to wrap cordova
+* Lazy Loading (cordova-phonegap): Hard to manage all of the cordova dependencies / Unfinished / Outdated
+* Hijack (meteor-rider): Slow initial load / Can't use appcache / Issues with plugins.
+* iFrame (meteor-cordova): iFrames generally are a pain including slow performance in native apps, glitchy scrolling, and having to wrap cordova
 * Cordova Loader: 
   * Manages assets for you
   * Fast loading

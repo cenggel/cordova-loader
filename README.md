@@ -5,7 +5,7 @@ This package aims to solve the short comings of the other meteor + cordova packa
 
 [Previus method comparison](http://zeroasterisk.com/2013/08/22/meteor-phonegapcordova-roundup-fall-2013/)
 
-This package takes a cordova project directory and compiles the assets into platform specific javascript files in the meteor public directory. Then on the client it loads the file that corresponds to the platorm. Cordova is used just as the docs describe.
+This package takes a cordova project directory and compiles the assets into platform specific javascript files in the meteor public directory (public/cordova/{platform}.js). Then on the client it loads the file that corresponds to the platorm. Cordova is used just as the docs describe.
 
 *Currently only tested with iOS. Will test the other platforms asap.*
 
@@ -26,9 +26,12 @@ This package takes a cordova project directory and compiles the assets into plat
   }
 }
 ````
-path: Path to your cordova project directory.
-platforms: Array of platforms you are using.
-logging: This is optional. Just trying to give some transpency into the package.
+###### Options: 
+* path: Path to your cordova project directory.
+* platforms: Array of platforms you are using.
+* logging: This is optional. Just trying to give some transpency into the package.
+
+*Note: the compiler will only run once due to live reload loop. If you want to rerun the compiler after adding a plugin just delete any of the public/cordova/ files.*
 
 ================
 

@@ -2,6 +2,7 @@ var fs = Npm.require('fs'),
       path = Npm.require('path'),
       async = Npm.require('async'),
       UglifyJS = Npm.require('uglify-js'),
+      watch = Npm.require('watch'),
       appPath = path.resolve('../../../../../'),
       cordovaProjectPath = Meteor.settings && Meteor.settings.cordova && Meteor.settings.cordova.path || null,
       platforms = Meteor.settings && Meteor.settings.cordova && Meteor.settings.cordova.platforms || [],
@@ -45,6 +46,24 @@ CordovaCompiler = {
         ]);
       } else {
         Logger.log('cordova', 'Cordova files already compiled!');
+
+        watch.watchTree(cordovaProjectPath + '/plugins', {ignoreDotFiles: true}, function (f, curr, prev) {
+          if (typeof f == "object" && prev === null && curr === null) {
+            // Finished walking the tree
+          } else {
+            if (fs.existsSync(appPath + '/public/cordova/' + platforms[0] + '.js')) {
+              fs.unlink(appPath + '/public/cordova/' + platforms[0] + '.js' ,function(e){
+                if(!e || (e && e.code === 'EEXIST')){
+
+                } else {
+                console.log(e);
+                }
+              });
+            }             
+          }
+        });
+
+        Logger.log('cordova', 'Watching cordova project plugin directory for changes..');
       }
     }
   },

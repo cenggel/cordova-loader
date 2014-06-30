@@ -49,7 +49,7 @@ self.wwwFolderName = @"http://192.168.1.6:3000";
 ================
 
 
-###### Running your app with settings
+##### Running your app with settings
 ````
 mrt --settings settings.json
 ````

@@ -91,7 +91,7 @@ Add the following settings to your cordova-project/config.xml
 <preference name="UIWebViewBounce" value="false"/>
 <preference name="AutoHideSplashScreen" value="false" />
 ````
-*Note: I'll create an example iOS app soon. Also, I'm going to create another partnering package for handling connection drops, overscroll styling issue, and native oAuth.. Stay tuned!*
+*Note: I'll create an example iOS app soon. Also, I'm going to create a seperate cordova package for handling connection drops, overscroll styling issue, and native oAuth.. Stay tuned!*
 
 ================
 

@@ -56,6 +56,25 @@ self.wwwFolderName = @"http://192.168.1.6:3000";
 ````
  *MeteorPhonegapApp > CordovaLib.xcodeproj > Classes > Cleaver > CDVViewController.m*
 
+###### Other iOS Suggestions
+
+Add the follwing cordova plugins:
+* org.apache.cordova.splashscreen
+
+Add the following settings to your cordova-project/config.xml
+````xml
+<feature name="SplashScreen">
+    <param name="ios-package" value="CDVSplashScreen"/>
+    <param name="onload" value="true" />
+</feature>
+<preference name="webviewbounce" value="false" />
+<preference name="DisableDoubleTapToFocus" value="false"/>
+<preference name="DisallowOverscroll" value="true"/>
+<preference name="UIWebViewBounce" value="false"/>
+<preference name="AutoHideSplashScreen" value="false" />
+````
+*Note: I'll create an example iOS app soon. Also, I'm going to create another partnering package for handling connection drops, overscroll styling issue, and native oAuth.. Stay tuned!*
+
 ================
 
 

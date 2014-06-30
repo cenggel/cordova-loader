@@ -10,8 +10,8 @@ This package takes a cordova project directory and compiles the assets into plat
 *Currently only tested with iOS. Will test the other platforms asap.*
 
 ###### Requirements: 
-xcode: 5.1.1
-cordova: 3.5
+* xcode: 5.1.1
+* cordova: 3.5
 
 ------------------------
 ### Installation / Setup

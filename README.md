@@ -1,6 +1,8 @@
 Cordova Loader
 ================
 
+![demo](http://cl.ly/image/1o1G0g2o0735/Image%202014-06-30%20at%2012.25.15%20AM.png)
+
 This package aims to solve the short comings of the other meteor + cordova packages. 
 
 [Previus method comparison](http://zeroasterisk.com/2013/08/22/meteor-phonegapcordova-roundup-fall-2013/)

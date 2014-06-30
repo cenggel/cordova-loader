@@ -80,7 +80,7 @@ CordovaCompiler = {
   },
 
   /*
-    Concat and minify the blatform specific bundles
+    Concat and minify the platform specific bundles
   */
   packFiles: function (callback) {
     // console.log(cordovaFiles);

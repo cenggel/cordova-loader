@@ -13,11 +13,11 @@ var isMobile = {
   }
 };
 
-injectScript = function (url) {
+var injectScript = function (url) {
   var script = document.createElement('script');
   script.src = url;
   document.head.appendChild(script);
-};
+}
 
 if (isMobile.Android()) {
   injectScript('/cordova/android.js');

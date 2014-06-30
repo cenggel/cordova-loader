@@ -22,7 +22,7 @@ This package takes a cordova project directory and compiles the assets into plat
 ````
 mrt add cordova-loader
 ````
-*Note: I would also suggest adding the appcache package. It will cache the platform file after its loaded once as well.*
+*Note: I would also suggest adding the appcache package. It will cache the cordova/platform file after it is loaded once as well.*
 
 ================
 

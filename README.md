@@ -7,7 +7,7 @@ This package aims to solve the short comings of the other meteor + cordova packa
 
 This package takes a cordova project directory and compiles the assets into platform specific javascript files in the meteor public directory (public/cordova/{platform}.js). Then on the client it loads the file that corresponds to the platorm. Cordova is used just as the docs describe.
 
-*Currently only tested with iOS. Will test the other platforms asap.*
+*Note: Currently only tested with iOS. Will test the other platforms asap.*
 
 ###### Requirements: 
 * xcode: 5.1.1
@@ -40,7 +40,7 @@ This package takes a cordova project directory and compiles the assets into plat
 ````
 mrt add cordova-loader
 ````
-*I would also suggest adding the appcache package. It will cache the platform file after its loaded once as well.*
+*Note: I would also suggest adding the appcache package. It will cache the platform file after its loaded once as well.*
 
 ================
 

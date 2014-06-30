@@ -3,7 +3,7 @@ Cordova Asset Compiler & Loader
 
 ## Introduction
 
-Cordova Loader's goal is to make using metor with cordova as easy as metor itself. The compiler interprets the provided cordova project directory and compiles the assets into minified platform specific javascript files that are placed in the meteor public directory. When the client loads, it automatically pulls in the platform specific file for that device. The cordova API can be used from meteor the same as it is from vanilla js apps. Enjoy!
+Cordova Loader's goal is to make using Meteor with Cordova as easy as using Meteor itself. The compiler interprets the provided Cordova project directory and compiles the assets into minified, platform-specific JavaScript files that are placed in the Meteor `/public` directory. When the client loads, it automatically pulls in the platform-specific file for that device. The Cordova API can be used from Meteor the same as it is from vanilla JS apps. Enjoy!
 
 ![demo](http://cl.ly/image/1o1G0g2o0735/Image%202014-06-30%20at%2012.25.15%20AM.png)
 
@@ -13,28 +13,28 @@ This package aims to solve the shortcomings of the other meteor + cordova packag
 
 ================
 
-###### Comparisson with methods described [here](http://zeroasterisk.com/2013/08/22/meteor-phonegapcordova-roundup-fall-2013/)
+###### Comparison with methods described [here](http://zeroasterisk.com/2013/08/22/meteor-phonegapcordova-roundup-fall-2013/)
 
-* Lazy Loading (cordova-phonegap): Hard to manage all of the cordova dependencies / Unfinished / Outdated
+* Lazy Loading (cordova-phonegap): Hard to manage all of the Cordova dependencies / Unfinished / Outdated
 * Hijack (meteor-rider): Slow initial load / Can't use appcache / Issues with plugins.
-* iFrame (meteor-cordova): iFrames generally are a pain including slow performance in native apps, glitchy scrolling, and having to wrap cordova
+* iFrame (meteor-cordova): iFrames generally are a pain including slow performance in native apps, glitchy scrolling, and having to wrap Cordova
 * Cordova Loader: 
   * Manages assets for you
   * Fast loading
   * Compatible with appcache
-  * Compatible with cordova plugins
-  * No need for wrapper around cordova
+  * Compatible with Cordova plugins
+  * No need for wrapper around Cordova
   * Minifies platform specific bundles
   * Automatically lazy loads platform specific bundles in client
-  * Watches cordova project plugin directory for changes
+  * Watches Cordova project plugin directory for changes
 
 ================
 
 ## Installation / Setup
 
 ##### Requirements
-* xcode: 5.1.1
-* cordova: 3.5
+* Xcode: 5.1.1
+* Cordova: 3.5
 
 ================
 
@@ -57,7 +57,7 @@ mrt add cordova-loader
 }
 ````
 ###### Options
-* path: Path to your cordova project directory.
+* path: Path to your Cordova project directory.
 * platforms: Array of platforms you are using.
 * logging: This is optional. Just trying to give some transpency into the package.
 
@@ -65,10 +65,10 @@ mrt add cordova-loader
 
 ================
 
-##### iOS Corvoa Project Setup
-Set up your project how you normally would and add whatever plugins you want. For this method nothing in the www directory will get loaded. 
+##### iOS Cordova Project Setup
+Set up your project how you normally would and add whatever plugins you want. For this method nothing in the `/www` directory will get loaded. 
 
-In your xcode project edit CDVViewController.m line: 185 to point to your meteor app:
+In your Xcode project, edit CDVViewController.m line: 185 to point to your Meteor app:
 ````
 self.wwwFolderName = @"http://192.168.1.6:3000";
 ````
@@ -76,7 +76,7 @@ self.wwwFolderName = @"http://192.168.1.6:3000";
 
 ###### Other iOS Suggestions
 
-Add the follwing cordova plugins:
+Add the follwing Cordova plugins:
 * org.apache.cordova.splashscreen
 
 Add the following settings to your cordova-project/config.xml
@@ -91,7 +91,7 @@ Add the following settings to your cordova-project/config.xml
 <preference name="UIWebViewBounce" value="false"/>
 <preference name="AutoHideSplashScreen" value="false" />
 ````
-*Note: I'll create an example iOS app soon. Also, I'm going to create a seperate cordova package for handling connection drops, overscroll styling issue, and native oAuth.. Stay tuned!*
+*Note: I'll create an example iOS app soon. Also, I'm going to create a seperate Cordova package for handling connection drops, overscroll styling issue, and native oAuth.. Stay tuned!*
 
 ================
 

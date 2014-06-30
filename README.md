@@ -7,6 +7,10 @@ This package takes a cordova project directory and compiles the assets into mini
 
 This package aims to solve the shortcomings of the other meteor + cordova packages. 
 
+*Note: Currently only tested with iOS. Will test the other platforms asap.*
+
+================
+
 ###### Comparisson with methods described [here](http://zeroasterisk.com/2013/08/22/meteor-phonegapcordova-roundup-fall-2013/)
 
 * Lazy Loading: Hard to manage all of the cordova dependencies
@@ -14,7 +18,8 @@ This package aims to solve the shortcomings of the other meteor + cordova packag
 * iFrame: iFrames generally are a pain including slow performance in native apps, glitchy scrolling, and having to wrap cordova
 * Cordova Loader: Manages assets for you, fast loading, works with appcache, works with plugins (no wrapper on cordova), minifies platform specific bundles
 
-*Note: Currently only tested with iOS. Will test the other platforms asap.*
+
+================
 
 ###### Requirements
 * xcode: 5.1.1

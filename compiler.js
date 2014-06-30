@@ -1,6 +1,7 @@
 var fs = Npm.require('fs'),
       path = Npm.require('path'),
       async = Npm.require('async'),
+      UglifyJS = Npm.require('uglify-js'),
       appPath = path.resolve('../../../../../'),
       cordovaProjectPath = Meteor.settings && Meteor.settings.cordova && Meteor.settings.cordova.path || null,
       platforms = Meteor.settings && Meteor.settings.cordova && Meteor.settings.cordova.platforms || [],
@@ -21,7 +22,7 @@ CordovaCompiler = {
       Logger.disableLog('cordova');
     }
 
-    Logger.log('cordova', 'Loading Cordova...');
+    Logger.log('cordova', 'Starting Cordova Asset Compiler...');
     Logger.log('cordova', 'Enabled Platforms: ', platforms.join(', '));
     
     if (cordovaProjectPath && platforms.length) {
@@ -31,7 +32,7 @@ CordovaCompiler = {
       platforms.forEach(function (platform) {
         cordovaFiles.plugin[platform] = [];
         cordovaFiles.core[platform] = [];
-        if (!fs.existsSync(appPath + "/public/cordova/" + platform + ".js")) {
+        if (!fs.existsSync(appPath + '/public/cordova/' + platform + '.js')) {
           alreadyBuilt = false;
         }
       });
@@ -53,12 +54,12 @@ CordovaCompiler = {
 
     platforms.forEach(function (platform) {
       var pack = [],
-            concatFile = "";
+            concatFile = '';
 
       pack = pack.concat(cordovaFiles.core[platform]);
       pack = pack.concat(cordovaFiles.plugin[platform]);
 
-      fs.mkdir(appPath + "/public/cordova",function(e){
+      fs.mkdir(appPath + '/public/cordova',function(e){
         if(!e || (e && e.code === 'EEXIST')){
             
         } else {
@@ -66,29 +67,25 @@ CordovaCompiler = {
         }
       });
 
-      async.series([
-        function (callback) {
-          async.eachSeries(pack, function (file, callback) {
-            fs.readFile(file, "utf8", function (err, data) {
-              concatFile += data;
-              callback(null, 'done');
-            });
-          }, 
-          function () { 
-            callback(null, 'done'); 
-          })
-        },
-        function (callback) {
-          fs.writeFile(appPath + "/public/cordova/" + platform + ".js", concatFile, function(err) {
-              if(err) {
-                  console.log(err);
-              } else {
-                  Logger.log('cordova', 'Cordova files compiled!');
-              }
-          }); 
-          callback(null, 'done');
-        }
-      ]);
+      var minifiedFile = UglifyJS.minify(pack, {
+          outSourceMap: 'cordova/' + platform + '.js.map'
+      });
+
+      fs.writeFile(appPath + '/public/cordova/' + platform + '.js', minifiedFile.code, function(err) {
+          if(err) {
+              console.log(err);
+          } else {
+              Logger.log('cordova', 'Added compiled asset to meteor project', '/public/cordova/' + platform + '.js');
+          }
+      }); 
+
+      fs.writeFile(appPath + '/public/cordova/' + platform + '.js.map', minifiedFile.map, function(err) {
+          if(err) {
+              console.log(err);
+          } else {
+              Logger.log('cordova', 'Added compiled asset to meteor project', '/public/cordova/' + platform + '.js.map');
+          }
+      }); 
 
     });
 
@@ -113,8 +110,8 @@ CordovaCompiler = {
 
     async.each(platforms, function (platform, callback) {
 
-      fs.readFile(cordovaProjectPath + '/platforms/' + platform + '/www/cordova_plugins.js', "utf8", function (err, data) {
-        plugins = data.substring(data.indexOf("module.exports"), data.indexOf('module.exports.meta')).replace('module.exports = ', '').replace(';', '');
+      fs.readFile(cordovaProjectPath + '/platforms/' + platform + '/www/cordova_plugins.js', 'utf8', function (err, data) {
+        plugins = data.substring(data.indexOf('module.exports'), data.indexOf('module.exports.meta')).replace('module.exports = ', '').replace(';', '');
         plugins = JSON.parse(plugins);
 
         plugins.forEach(function (plugin) {

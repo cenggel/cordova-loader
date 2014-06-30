@@ -1,7 +1,7 @@
 Cordova Asset Compiler & Loader
 ================
 
-This package takes a cordova project directory and compiles the assets into minified platform specific javascript files in the meteor public directory (public/cordova/{platform}.js). When the client loads it lazy loads the platform specific bundle. Cordova is used just as the cordova docs describe and there is no need for any wrappers.
+This package takes a cordova project directory and compiles the assets into minified platform specific javascript files in the meteor public directory (public/cordova/{platform}.js). When the client loads it automatically lazy loads the platform specific file. Cordova is used just as the cordova docs describe and there is no need for any wrappers.
 
 ![demo](http://cl.ly/image/1o1G0g2o0735/Image%202014-06-30%20at%2012.25.15%20AM.png)
 

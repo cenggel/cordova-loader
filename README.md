@@ -2,7 +2,8 @@ Cordova Loader
 ================
 
 This package aims to solve the short comings of the other meteor + cordova packages. 
-Previous methods: [a comparison of approaches](http://zeroasterisk.com/2013/08/22/meteor-phonegapcordova-roundup-fall-2013/)
+
+[Previus method comparison](http://zeroasterisk.com/2013/08/22/meteor-phonegapcordova-roundup-fall-2013/)
 
 This package takes a cordova project directory and compiles the assets into platform specific javascript files in the meteor public directory. Then on the client it loads the file that corresponds to the platorm. Cordova is used just as the docs describe.
 

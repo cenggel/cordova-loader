@@ -1,7 +1,9 @@
 Cordova Asset Compiler & Loader
 ================
 
-This package takes a cordova project directory and compiles the assets into minified platform specific javascript files in the meteor public directory (public/cordova/{platform}.js). When the client loads, it automatically lazy loads the platform specific file. The cordova API can be used from meteor just as shown in the cordova documentation and there is no need for any wrappers.
+## Introduction
+
+Cordova Loader takes a cordova project directory and compiles the assets into minified platform specific javascript files in the meteor public directory (public/cordova/{platform}.js). When the client loads, it automatically lazy loads the platform specific file. The cordova API can be used from meteor just as shown in the cordova documentation and there is no need for any wrappers.
 
 ![demo](http://cl.ly/image/1o1G0g2o0735/Image%202014-06-30%20at%2012.25.15%20AM.png)
 
@@ -18,17 +20,15 @@ This package aims to solve the shortcomings of the other meteor + cordova packag
 * iFrame: iFrames generally are a pain including slow performance in native apps, glitchy scrolling, and having to wrap cordova
 * Cordova Loader: Manages assets for you, fast loading, works with appcache, works with plugins (no wrapper on cordova), minifies platform specific bundles
 
-
 ------------------------
 
-### Installation / Setup
+## Installation / Setup
 
 ##### Requirements
 * xcode: 5.1.1
 * cordova: 3.5
 
 ================
-
 
 ##### Package Installation
 ````
@@ -37,7 +37,6 @@ mrt add cordova-loader
 *Note: I would also suggest adding the appcache package. It will cache the cordova/platform file after it is loaded once as well.*
 
 ================
-
 
 ##### Meteor settings file (settings.json)
 ````
@@ -57,7 +56,6 @@ mrt add cordova-loader
 *Note: the compiler will only run once due to live reload loop. If you want to rerun the compiler after adding a plugin just delete any of the public/cordova/ files.*
 
 ================
-
 
 ##### iOS Corvoa Project Setup
 Set up your project how you normally would and add whatever plugins you want. For this method nothing in the www directory will get loaded. 
@@ -89,8 +87,10 @@ Add the following settings to your cordova-project/config.xml
 
 ================
 
-
 ##### Running your app with settings
 ````
 mrt --settings settings.json
 ````
+================
+
+If you want more features than this provides, file an issue. Feature requests/contributions are welcome.

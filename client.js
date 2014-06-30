@@ -1,20 +1,20 @@
 var isMobile = {
-  Android: function() {
+  Android: function () {
     return /Android/i.test(navigator.userAgent);
   },
-  BlackBerry: function() {
+  BlackBerry: function () {
     return /BlackBerry/i.test(navigator.userAgent);
   },
-  iOS: function() {
+  iOS: function () {
     return /iPhone|iPad|iPod/i.test(navigator.userAgent);
   },
-  Windows: function() {
+  Windows: function () {
     return /IEMobile/i.test(navigator.userAgent);
   }
 };
 
-injectScript = function(url) {
-  var script = document.createElement("script");
+injectScript = function (url) {
+  var script = document.createElement('script');
   script.src = url;
   document.head.appendChild(script);
 };

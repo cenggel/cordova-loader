@@ -3,7 +3,7 @@ Cordova Asset Compiler & Loader
 
 ## Introduction
 
-Cordova Loader takes a cordova project directory and compiles the assets into minified platform specific javascript files in the meteor public directory (public/cordova/{platform}.js). When the client loads, it automatically lazy loads the platform specific file. The cordova API can be used from meteor just as shown in the cordova documentation and there is no need for any wrappers.
+Cordova Loader's goal is to make using metor with cordova as easy as metor itself. The compiler interprets the provided cordova project directory and compiles the assets into minified platform specific javascript files that are placed in the meteor public directory (public/cordova/{platform}.js) to be served. When the client loads, it automatically pulls in the platform specific file for that device. The cordova API can be used from meteor just as shown in the cordova documentation and there is no need for any wrappers.
 
 ![demo](http://cl.ly/image/1o1G0g2o0735/Image%202014-06-30%20at%2012.25.15%20AM.png)
 

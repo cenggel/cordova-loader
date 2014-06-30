@@ -1,17 +1,22 @@
 Cordova Asset Compiler & Loader
 ================
 
-This package aims to solve the short comings of the other meteor + cordova packages. 
-
-[Previus method comparison](http://zeroasterisk.com/2013/08/22/meteor-phonegapcordova-roundup-fall-2013/)
+This package takes a cordova project directory and compiles the assets into minified platform specific javascript files in the meteor public directory (public/cordova/{platform}.js). When the client loads it lazy loads the platform specific bundle. Cordova is used just as the cordova docs describe and there is no need for any wrappers.
 
 ![demo](http://cl.ly/image/1o1G0g2o0735/Image%202014-06-30%20at%2012.25.15%20AM.png)
 
-This package takes a cordova project directory and compiles the assets into minified platform specific javascript files in the meteor public directory (public/cordova/{platform}.js). When the client loads it lazy loads the platform specific bundle. Cordova is used just as the cordova docs describe and there is no need for any wrappers.
+This package aims to solve the shortcomings of the other meteor + cordova packages. 
+
+###### Comparisson with methods described [here](http://zeroasterisk.com/2013/08/22/meteor-phonegapcordova-roundup-fall-2013/)
+
+* Lazy Loading: Hard to manage all of the cordova dependencies
+* Hijack (Rider): Slow initial load / Can't use appcache / Issues with plugins.
+* iFrame: iFrames generally are a pain including slow performance in native apps, glitchy scrolling, and having to wrap cordova
+* Cordova Loader: Manages assets for you, fast loading, works with appcache, works with plugins (no wrapper on cordova), minifies platform specific bundles
 
 *Note: Currently only tested with iOS. Will test the other platforms asap.*
 
-###### Requirements: 
+###### Requirements
 * xcode: 5.1.1
 * cordova: 3.5
 
@@ -37,7 +42,7 @@ mrt add cordova-loader
   }
 }
 ````
-###### Options: 
+###### Options
 * path: Path to your cordova project directory.
 * platforms: Array of platforms you are using.
 * logging: This is optional. Just trying to give some transpency into the package.

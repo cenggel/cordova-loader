@@ -4,7 +4,8 @@ Package.describe({
 
 Npm.depends({
   'async': '0.9.0',
-  'uglify-js': '2.4.14'
+  'uglify-js': '2.4.14',
+  'chokidar': '0.8.2'
 });
 
 Package.on_use(function (api) {

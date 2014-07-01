@@ -88,8 +88,8 @@ self.wwwFolderName = @"http://192.168.1.1:3000";
  *MeteorPhonegapApp > CordovaLib.xcodeproj > Classes > Cleaver > CDVViewController.m*
 
 Project.plist settings:
-"View controller-based status bar appearance": "NO"
-"Status bar is initially hidden": "YES"
+* "View controller-based status bar appearance": "NO"
+* "Status bar is initially hidden": "YES"
 
 Add the following settings to your `platforms/ios/project/config.xml`
 ````xml

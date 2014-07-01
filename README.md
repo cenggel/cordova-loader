@@ -63,10 +63,13 @@ mrt add cordova-loader
 
 ================
 
-## Recommended Plugins
-* [Cordova Plugin Guide](https://github.com/andrewreedy/meteor-cordova-loader/wiki/Plugins)
+## Cordova Setup Guide
+* [Cordova Setup Guide](https://github.com/andrewreedy/meteor-cordova-loader/wiki/Cordova-Setup)
 
-## Platform Guides
+## Recommended Cordova Plugins
+* [Cordova Plugin Guide](https://github.com/andrewreedy/meteor-cordova-loader/wiki/Cordova-Plugins)
+
+## Platform Setup Guides
 * [iOS Setup Guide](https://github.com/andrewreedy/meteor-cordova-loader/wiki/iOS-Setup)
 * [Android Setup Guide](https://github.com/andrewreedy/meteor-cordova-loader/wiki/Anroid-Setup)
 

@@ -77,7 +77,6 @@ cordova plugin add https://github.com/driftyco/ionic-plugins-keyboard.git
 cordova plugin add https://github.com/phonegap-build/PushPlugin.git
 cordova plugin add org.apache.cordova.geolocation
 ```
-================
 
 ## iOS Setup
 

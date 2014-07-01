@@ -28,8 +28,6 @@ This package aims to solve the shortcomings of the other meteor + cordova packag
   * Automatically lazy loads platform specific bundles in client
   * Watches Cordova project plugin directory for changes
 
-================
-
 ## Installation / Setup
 
 ##### Requirements
@@ -123,7 +121,8 @@ document.addEventListener('deviceready', onDeviceReady, true);
 
 *Note: We have the pushPlugin working out of the box perfectly with Amason SNS. Ping me if you have any quetions.*
 
-================
+
+## Final Notes
 
 ##### Running your app with settings
 ````

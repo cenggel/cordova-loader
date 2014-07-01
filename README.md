@@ -63,64 +63,12 @@ mrt add cordova-loader
 
 ================
 
-##### Plugin Suggestions:
-````
-// Needed to make it feel native
-cordova plugin add org.apache.cordova.splashscreen
-cordova plugin add org.apache.cordova.statusbar
-cordova plugin add org.apache.cordova.dialogs
-cordova plugin add https://github.com/driftyco/ionic-plugins-keyboard.git
+## Recommended Plugins
+* [Cordova Plugin Guide](https://github.com/andrewreedy/meteor-cordova-loader/wiki/Plugins)
 
-// Optional
-cordova plugin add https://github.com/phonegap-build/PushPlugin.git
-cordova plugin add org.apache.cordova.geolocation
-```
-
-## iOS Setup
-
-##### iOS Cordova Project Setup
-Set up your project how you normally would and add whatever plugins you want. For this method nothing in the `/www` directory will get loaded. 
-
-In your Xcode project, edit CDVViewController.m line: 185 to point to your Meteor app:
-````
-self.wwwFolderName = @"http://192.168.1.1:3000";
-````
- *MeteorPhonegapApp > CordovaLib.xcodeproj > Classes > Cleaver > CDVViewController.m*
-
-Project.plist settings:
-* "View controller-based status bar appearance": "NO"
-* "Status bar is initially hidden": "YES"
-
-Add the following settings to your `platforms/ios/project/config.xml`
-````xml
-<preference name="DisallowOverscroll" value="true" />
-<preference name="UIWebViewBounce" value="false"/>
-<preference name="ShowSplashScreenSpinner" value="false" />
-<preference name="AutoHideSplashScreen" value="false" />
-<preference name="StatusBarOverlaysWebView" value="false" />
-````
-
-##### iOS Client Setup
-
-As far as making the client feel native that's really going to be up to you on how far you take it. We're using Famo.us via Famono to get the native physics and GPU rendering speed. I'll give you a couple pointers we use.
-
-```
-function onDeviceReady() {
-  // Native feeling keyboard settings
-  cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-  cordova.plugins.Keyboard.disableScroll(true);
-
-  // To display the status bar after load
-  StatusBar.overlaysWebView(true);
-  StatusBar.styleLightContent();
-  StatusBar.show();
-} 
-
-document.addEventListener('deviceready', onDeviceReady, true);
-```
-
-*Note: We have the pushPlugin working out of the box perfectly with Amason SNS. Ping me if you have any quetions.*
-
+## Platform Guides
+* [iOS Setup Guide](https://github.com/andrewreedy/meteor-cordova-loader/wiki/iOS-Setup)
+* [Android Setup Guide](https://github.com/andrewreedy/meteor-cordova-loader/wiki/Anroid-Setup)
 
 ## Final Notes
 

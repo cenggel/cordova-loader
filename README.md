@@ -65,32 +65,41 @@ mrt add cordova-loader
 
 ================
 
+##### Plugin Suggestions:
+````
+// Needed to make it feel native
+cordova plugin add org.apache.cordova.splashscreen
+cordova plugin add org.apache.cordova.statusbar
+cordova plugin add org.apache.cordova.dialogs
+cordova plugin add https://github.com/driftyco/ionic-plugins-keyboard.git
+
+// Optional
+cordova plugin add https://github.com/phonegap-build/PushPlugin.git
+cordova plugin add org.apache.cordova.geolocation
+```
+
 ##### iOS Cordova Project Setup
 Set up your project how you normally would and add whatever plugins you want. For this method nothing in the `/www` directory will get loaded. 
 
 In your Xcode project, edit CDVViewController.m line: 185 to point to your Meteor app:
 ````
-self.wwwFolderName = @"http://192.168.1.6:3000";
+self.wwwFolderName = @"http://192.168.1.1:3000";
 ````
  *MeteorPhonegapApp > CordovaLib.xcodeproj > Classes > Cleaver > CDVViewController.m*
 
-###### Other iOS Suggestions
+Project.plist settings:
+"View controller-based status bar appearance": "NO"
+"Status bar is initially hidden": "YES"
 
-Add the follwing Cordova plugins:
-* org.apache.cordova.splashscreen
-
-Add the following settings to your cordova-project/config.xml
+Add the following settings to your `platforms/ios/project/config.xml`
 ````xml
-<feature name="SplashScreen">
-    <param name="ios-package" value="CDVSplashScreen"/>
-    <param name="onload" value="true" />
-</feature>
-<preference name="webviewbounce" value="false" />
-<preference name="DisableDoubleTapToFocus" value="false"/>
-<preference name="DisallowOverscroll" value="true"/>
+<preference name="DisallowOverscroll" value="true" />
 <preference name="UIWebViewBounce" value="false"/>
+<preference name="ShowSplashScreenSpinner" value="false" />
 <preference name="AutoHideSplashScreen" value="false" />
+<preference name="StatusBarOverlaysWebView" value="false" />
 ````
+
 *Note: I'll create an example iOS app soon. Also, I'm going to create a seperate Cordova package for handling connection drops, overscroll styling issue, and native oAuth.. Stay tuned!*
 
 ================

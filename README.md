@@ -73,6 +73,9 @@ mrt add cordova-loader
 * [iOS Setup Guide](https://github.com/andrewreedy/meteor-cordova-loader/wiki/iOS-Setup) - Detailed walkthrough of steps to setup the iOS Cordova project.
 * [Android Setup Guide](https://github.com/andrewreedy/meteor-cordova-loader/wiki/Anroid-Setup) _ Detailed walkthrough of steps to setup Android Cordova project. (coming soon).
 
+### Facebook Native SDK
+[accounts-facebook-cordova](https://github.com/andrewreedy/meteor-accounts-facebook-cordova)
+
 ## Final Notes
 
 ##### Running your app with settings

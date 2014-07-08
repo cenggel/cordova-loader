@@ -13,7 +13,7 @@ This package aims to solve the shortcomings of the other meteor + cordova packag
 
 ================
 
-###### Comparison with methods described [here](http://zeroasterisk.com/2013/08/22/meteor-phonegapcordova-roundup-fall-2013/)
+###### Cordova + Metoer method comparisson 
 
 * Lazy Loading (cordova-phonegap): 
   * Cons:

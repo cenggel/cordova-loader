@@ -15,18 +15,42 @@ This package aims to solve the shortcomings of the other meteor + cordova packag
 
 ###### Comparison with methods described [here](http://zeroasterisk.com/2013/08/22/meteor-phonegapcordova-roundup-fall-2013/)
 
-* Lazy Loading (cordova-phonegap): Hard to manage all of the Cordova dependencies / Unfinished / Outdated
-* Hijack (meteor-rider): Slow initial load / Can't use appcache / Issues with plugins.
-* iFrame (meteor-cordova): iFrames generally are a pain including slow performance in native apps, glitchy scrolling, and having to wrap Cordova
+* Lazy Loading (cordova-phonegap): 
+  * Cons:
+    * Hard to manage all of the Cordova dependencies
+    * Unfinished 
+    * Outdated
+* Hijack (meteor-rider): 
+  * Cons: 
+    * Slow initial load
+    * Can't use appcache
+    * Issues with plugins.
+* iFrame (meteor-cordova): 
+  * Pros:
+     * You don't have to lazy load cordova.js files
+  * Cons: 
+    * Said to have slow performance in native apps - [Read more](https://github.com/phonegap/phonegap/wiki/iFrame-Usage)
+    * Glitchy scrolling (can overcome with iScroll)
+    * Uses wrapped Cordova
 * Cordova Loader: 
-  * Manages assets for you
-  * Fast loading
-  * Compatible with appcache
-  * Compatible with Cordova plugins
-  * No need for wrapper around Cordova
-  * Minifies platform specific bundles which are served from memory
-  * Automatically lazy loads platform specific bundles in client
-  * Watches Cordova project plugin directory for changes
+  * Pros:
+    * Manages assets for you
+    * Fast loading
+    * Compatible with Cordova plugins
+    * No need for wrapper around Cordova
+    * Minifies platform specific bundles which are served from memory
+    * Automatically lazy loads platform specific bundles in client
+    * Watches Cordova project plugin directory for changes
+  * Cons:
+    * To use appcache you must use `appcache-extra` package (which is the same thing with more options)
+* Packaged Apps (still in the works):
+  * Pros:
+    * Fastest load speed
+    * Best offline support
+    * Esspecially great for larger apps (like games)
+  * Cons:
+    * No hot updates / have to go through normal app store approval
+    * Support old versions of the app
 
 ## Installation / Setup
 

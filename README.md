@@ -47,23 +47,23 @@ mrt add cordova-loader
 
 ================
 
-### Comparisson of Meteor + Cordova methods/packages
+#### Comparisson of Meteor + Cordova methods/packages
 * [Meteor + Cordova Methods](https://github.com/andrewreedy/meteor-cordova-loader/wiki/Meteor---Cordova-Methods) - Pros / Cons to the different packages / ways of Combining meteor with Cordova.
 
-### Cordova Setup Guide
+#### Cordova Setup Guide
 * [Cordova Setup Guide](https://github.com/andrewreedy/meteor-cordova-loader/wiki/Cordova-Setup) - Instructions on how to setup the basic Cordova project needed to get started. (comming soon).
 
-### Recommended Cordova Plugins
+#### Recommended Cordova Plugins
 * [Cordova Plugin Guide](https://github.com/andrewreedy/meteor-cordova-loader/wiki/Cordova-Plugins) - Plugins necessary to make the Meteor app feel native. Also, an overview of optional plugins like setting up push notificaitons and geolocation.
 
-### Platform Setup Guides
+#### Platform Setup Guides
 * [iOS Setup Guide](https://github.com/andrewreedy/meteor-cordova-loader/wiki/iOS-Setup) - Detailed walkthrough of steps to setup the iOS Cordova project.
 * [Android Setup Guide](https://github.com/andrewreedy/meteor-cordova-loader/wiki/Anroid-Setup) - Detailed walkthrough of steps to setup Android Cordova project. (coming soon).
 
-### Facebook Native SDK
+#### Facebook Native SDK
 * [accounts-facebook-cordova](https://github.com/andrewreedy/meteor-accounts-facebook-cordova) - Works with the cordova plugin to use facebook single sign on when it exists otherwise use standar oauth package.
 
-### Example Apps
+#### Example Apps
 * [Meteor Cordova Todo](https://github.com/andrewreedy/meteor-cordova-todo) - Just started working on this. This will eventually be a working app as an example.
 
 ## Final Notes

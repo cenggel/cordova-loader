@@ -40,7 +40,7 @@ This package aims to solve the shortcomings of the other meteor + cordova packag
 ````
 mrt add cordova-loader
 ````
-*Note: I would also suggest adding the * [appcache-cordova](http://github.com/andrewreedy/meteor-appcache-cordova) package. It will cache the cordova/platform file after it is loaded once and gives you a way to handle appcache reloads with better UX.*
+*Note: I would also suggest adding the [appcache-extra](http://github.com/andrewreedy/meteor-appcache-extra) package. It will cache the cordova/platform file after it is loaded once and gives you a way to handle appcache reloads with better UX.*
 
 ================
 

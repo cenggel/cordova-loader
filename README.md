@@ -47,7 +47,7 @@ mrt add cordova-loader
 
 ================
 
-#### Comparisson of Meteor + Cordova methods/packages
+#### Comparison of Meteor + Cordova methods/packages
 * [Meteor + Cordova Methods](https://github.com/andrewreedy/meteor-cordova-loader/wiki/Meteor---Cordova-Methods) - Pros / Cons to the different packages / ways of Combining meteor with Cordova.
 
 #### Cordova Setup Guide

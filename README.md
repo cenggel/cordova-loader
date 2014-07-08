@@ -32,7 +32,7 @@ This package aims to solve the shortcomings of the other meteor + cordova packag
     * Said to have slow performance in native apps - [Read more](https://github.com/phonegap/phonegap/wiki/iFrame-Usage)
     * Glitchy scrolling (can overcome with iScroll)
     * Uses wrapped Cordova
-* Cordova Loader: 
+* Cordova Loader (cordova-loader): 
   * Pros:
     * Manages assets for you
     * Fast loading

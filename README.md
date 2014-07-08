@@ -13,45 +13,6 @@ This package aims to solve the shortcomings of the other meteor + cordova packag
 
 ================
 
-###### Cordova + Meteor method comparisson 
-
-* Lazy Loading (cordova-phonegap): 
-  * Cons:
-    * Hard to manage all of the Cordova dependencies
-    * Unfinished 
-    * Outdated
-* Hijack (meteor-rider): 
-  * Cons: 
-    * Slow initial load
-    * Can't use appcache
-    * Issues with plugins.
-* iFrame (meteor-cordova): 
-  * Pros:
-     * You don't have to lazy load cordova.js files
-  * Cons: 
-    * Said to have slow performance in native apps - [Read more](https://github.com/phonegap/phonegap/wiki/iFrame-Usage)
-    * Glitchy scrolling (can overcome with iScroll)
-    * Uses wrapped Cordova
-* Cordova Loader (cordova-loader): 
-  * Pros:
-    * Manages assets for you
-    * Fast loading
-    * Compatible with Cordova plugins
-    * No need for wrapper around Cordova
-    * Minifies platform specific bundles which are served from memory
-    * Automatically lazy loads platform specific bundles in client
-    * Watches Cordova project plugin directory for changes
-  * Cons:
-    * To use appcache you must use `appcache-extra` package (which is the same thing with more options)
-* Packaged Apps (still in the works):
-  * Pros:
-    * Fastest load speed
-    * Best offline support
-    * Esspecially great for larger apps (like games)
-  * Cons:
-    * No hot updates / have to go through normal app store approval
-    * Support old versions of the app
-
 ## Installation / Setup
 
 ##### Requirements
@@ -87,6 +48,7 @@ mrt add cordova-loader
 
 ================
 
+
 ### Cordova Setup Guide
 * [Cordova Setup Guide](https://github.com/andrewreedy/meteor-cordova-loader/wiki/Cordova-Setup) - Instructions on how to setup the basic Cordova project needed to get started. (comming soon).
 
@@ -99,6 +61,9 @@ mrt add cordova-loader
 
 ### Facebook Native SDK
 * [accounts-facebook-cordova](https://github.com/andrewreedy/meteor-accounts-facebook-cordova) - Works with the cordova plugin to use facebook single sign on when it exists otherwise use standar oauth package.
+
+### Example App
+* [Meteor Cordova Todo](https://github.com/andrewreedy/meteor-cordova-todo) - Just started working on this. This will eventually be a working app as an example.
 
 ## Final Notes
 

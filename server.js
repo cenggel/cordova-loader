@@ -10,9 +10,10 @@ var fs = Npm.require('fs'),
       cordovaFiles = {
         core: {},
         plugin: {}
-      };
+      },
+      compiledFiles = {};
 
-CordovaCompiler = {
+CordovaLoader = {
 
   /*
     Set up the package and determine if the assets need compiled
@@ -45,13 +46,13 @@ CordovaCompiler = {
         async.series([
           _this.addCoreFiles,
           _this.addPluginFiles,
-          _this.packFiles
+          _this.packFiles,
+          _this.serve
         ]);
       } else {
         Logger.log('cordova', 'Cordova files already compiled!');
-
         _this.watch();
-
+        _this.serve();
       }
     }
   },
@@ -64,19 +65,50 @@ CordovaCompiler = {
       if (typeof f == "object" && prev === null && curr === null) {
         // Finished walking the tree
       } else {
-        if (fs.existsSync(appPath + '/public/cordova/' + platforms[0] + '.js')) {
-          fs.unlink(appPath + '/public/cordova/' + platforms[0] + '.js' ,function(e){
-            if(!e || (e && e.code === 'EEXIST')){
-
-            } else {
-              console.log(e);
-            }
-          });
+        if (compiledFiles[platforms[0]]) {
+          console.log("recompile");
         }             
       }
     });
 
     Logger.log('cordova', 'Watching cordova project plugin directory for changes..');
+  },
+
+  /*
+    Serve the compiled files on /cordova.js
+  */
+  serve: function () {
+    WebApp.connectHandlers.use(function(req, res, next) {
+      var platform, response;
+
+      if (req.url.split('/')[1] !== "cordova.js" || req.method !== "GET") {
+        next();
+        return;
+      }
+
+      if (/iPhone|iPad|iPod/i.test(req.headers["user-agent"])) {
+        platform = "ios";
+      } else if (/Android/i.test(req.headers["user-agent"])){
+        platform = "android";
+      } else if (/BlackBerry/i.test(req.headers["user-agent"])){
+        platform = "blackberry";
+      } else if (/IEMobile/i.test(req.headers["user-agent"])){
+        platform = "windows";
+      }
+
+      if (_.indexOf(platforms, platform) == -1) {
+        response = "// Browser not supported";
+      } else {
+        response = compiledFiles[platform];
+        Logger.log('cordova', 'Serving the cordova.js file to platform', platform);
+      }
+
+      res.statusCode = 200;
+      res.setHeader("Content-Length", Buffer.byteLength(response, "utf8"));
+      res.setHeader("Content-Type", "text/javascript");
+      res.write(response);
+      res.end();
+    });
   },
 
   /*
@@ -92,34 +124,7 @@ CordovaCompiler = {
       pack = pack.concat(cordovaFiles.core[platform]);
       pack = pack.concat(cordovaFiles.plugin[platform]);
 
-      fs.mkdir(appPath + '/public/cordova',function(e){
-        if(!e || (e && e.code === 'EEXIST')){
-            
-        } else {
-            console.log(e);
-        }
-      });
-
-      var minifiedFile = UglifyJS.minify(pack, {
-          outSourceMap: 'cordova/' + platform + '.js.map'
-      });
-
-      fs.writeFile(appPath + '/public/cordova/' + platform + '.js', minifiedFile.code, function(err) {
-          if(err) {
-              console.log(err);
-          } else {
-              Logger.log('cordova', 'Added compiled asset to meteor project', '/public/cordova/' + platform + '.js');
-          }
-      }); 
-
-      fs.writeFile(appPath + '/public/cordova/' + platform + '.js.map', minifiedFile.map, function(err) {
-          if(err) {
-              console.log(err);
-          } else {
-              Logger.log('cordova', 'Added compiled asset to meteor project', '/public/cordova/' + platform + '.js.map');
-          }
-      }); 
-
+      compiledFiles[platform] = UglifyJS.minify(pack, {}).code;
     });
 
     callback(null, 'done');
@@ -172,4 +177,4 @@ CordovaCompiler = {
   }
 }
 
-CordovaCompiler.init();
+CordovaLoader.init();

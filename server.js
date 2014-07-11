@@ -13,6 +13,10 @@ var fs = Npm.require('fs'),
       },
       compiledFiles = {};
 
+// handle relative Cordova Project Paths
+if (appPath && cordovaProjectPath)
+    cordovaProjectPath = path.resolve(appPath, cordovaProjectPath);
+
 CordovaLoader = {
 
   /*
@@ -31,6 +35,8 @@ CordovaLoader = {
     Logger.log('cordova', 'Enabled Platforms: ', platforms.join(', '));
     
     if (cordovaProjectPath && platforms.length) {
+
+      Logger.log('cordova', 'Cordova Project Path:', cordovaProjectPath);
 
       alreadyBuilt = true;
 
@@ -138,11 +144,11 @@ CordovaLoader = {
     platforms.forEach(function (platform) {
       location = cordovaProjectPath + '/platforms/' + platform + '/www/cordova.js';
       cordovaFiles.core[platform].push(location);
-      Logger.log('cordova', 'Adding ' + platform + ' corova file', location);
+      Logger.log('cordova', 'Adding ' + platform + ' corodva file', location);
 
       location = cordovaProjectPath + '/platforms/' + platform + '/www/cordova_plugins.js';
       cordovaFiles.core[platform].push(location);
-      Logger.log('cordova', 'Adding ' + platform + ' corova file', location);
+      Logger.log('cordova', 'Adding ' + platform + ' corodva file', location);
     });
 
     callback(null, 'done');
@@ -155,7 +161,10 @@ CordovaLoader = {
 
     async.each(platforms, function (platform, callback) {
 
-      fs.readFile(cordovaProjectPath + '/platforms/' + platform + '/www/cordova_plugins.js', 'utf8', function (err, data) {
+      var pluginJsFilePath = cordovaProjectPath + '/platforms/' + platform + '/www/cordova_plugins.js';
+      fs.readFile(pluginJsFilePath, 'utf8', function (err, data) {
+        if (err)
+          Logger.log('error', 'error while reading file '+pluginJsFilePath);
         plugins = data.substring(data.indexOf('module.exports'), data.indexOf('module.exports.meta')).replace('module.exports = ', '').replace(';', '');
         plugins = JSON.parse(plugins);
 

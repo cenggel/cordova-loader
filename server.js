@@ -142,11 +142,19 @@ CordovaLoader = {
   */
   addCoreFiles: function (callback) {
     platforms.forEach(function (platform) {
-      location = cordovaProjectPath + '/platforms/' + platform + '/www/cordova.js';
+
+      var path = "";
+      if (platform == "ios") {
+        path = "/www/";
+      } else if (platform == "android") {
+        path = "/assets/www/"
+      }
+
+      location = cordovaProjectPath + '/platforms/' + platform + path + 'cordova.js';
       cordovaFiles.core[platform].push(location);
       Logger.log('cordova', 'Adding ' + platform + ' corodva file', location);
 
-      location = cordovaProjectPath + '/platforms/' + platform + '/www/cordova_plugins.js';
+      location = cordovaProjectPath + '/platforms/' + platform + path + 'cordova_plugins.js';
       cordovaFiles.core[platform].push(location);
       Logger.log('cordova', 'Adding ' + platform + ' corodva file', location);
     });
@@ -161,7 +169,14 @@ CordovaLoader = {
 
     async.each(platforms, function (platform, callback) {
 
-      var pluginJsFilePath = cordovaProjectPath + '/platforms/' + platform + '/www/cordova_plugins.js';
+      var path = "";
+      if (platform == "ios") {
+        path = "/www/";
+      } else if (platform == "android") {
+        path = "/assets/www/"
+      }
+
+      var pluginJsFilePath = cordovaProjectPath + '/platforms/' + platform + path + 'cordova_plugins.js';
       fs.readFile(pluginJsFilePath, 'utf8', function (err, data) {
         if (err)
           Logger.log('error', 'error while reading file '+pluginJsFilePath);
@@ -169,7 +184,7 @@ CordovaLoader = {
         plugins = JSON.parse(plugins);
 
         plugins.forEach(function (plugin) {
-          location = cordovaProjectPath + '/platforms/' + platform + '/www/' + plugin.file;
+          location = cordovaProjectPath + '/platforms/' + platform + path + plugin.file;
 
           cordovaFiles.plugin[platform].push(location);
           Logger.log('cordova', 'Adding ' + platform + ' plugin file', location);

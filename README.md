@@ -28,7 +28,7 @@ mrt add cordova-loader
 
 ================
 
-##### Meteor settings file (settings.json)
+##### Meteor settings file (development)
 ````
 {
   "cordova":{
@@ -38,6 +38,17 @@ mrt add cordova-loader
   }
 }
 ````
+##### Meteor settings file (production)
+````
+{
+  "cordova":{
+    "mode": "production",
+    "platforms": ["ios"],
+    "logging": true
+  }
+}
+````
+
 ###### Options
 * path: Path to your Cordova project directory.
 * platforms: Array of platforms you are using.

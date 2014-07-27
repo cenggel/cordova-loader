@@ -4,14 +4,23 @@ var fs = Npm.require('fs'),
       UglifyJS = Npm.require('uglify-js'),
       watch = Npm.require('watch'),
       appPath = path.resolve('../../../../../'),
+
+      // Meteor Settings
       cordovaProjectPath = Meteor.settings && Meteor.settings.cordova && Meteor.settings.cordova.path || null,
       platforms = Meteor.settings && Meteor.settings.cordova && Meteor.settings.cordova.platforms || [],
       logging = Meteor.settings && Meteor.settings.cordova && Meteor.settings.cordova.logging || false,
+      mode = Meteor.settings && Meteor.settings.cordova && Meteor.settings.cordova.mode || "development",
+
+      // Data Structure
       cordovaFiles = {
         core: {},
         plugin: {}
       },
       compiledFiles = {};
+
+// handle relative Cordova Project Paths
+if (appPath && cordovaProjectPath)
+    cordovaProjectPath = path.resolve(appPath, cordovaProjectPath);
 
 CordovaLoader = {
 
@@ -30,29 +39,30 @@ CordovaLoader = {
     Logger.log('cordova', 'Starting Cordova Asset Compiler...');
     Logger.log('cordova', 'Enabled Platforms: ', platforms.join(', '));
     
-    if (cordovaProjectPath && platforms.length) {
-
-      alreadyBuilt = true;
+    if (platforms.length) {
 
       platforms.forEach(function (platform) {
         cordovaFiles.plugin[platform] = [];
         cordovaFiles.core[platform] = [];
-        if (!fs.existsSync(appPath + '/public/cordova/' + platform + '.js')) {
-          alreadyBuilt = false;
-        }
       });
 
-      if (!alreadyBuilt) {
+      if (mode == "development" && cordovaProjectPath) {
+        Logger.log('cordova', 'Cordova Project Path:', cordovaProjectPath);
+        Logger.log('cordova', 'cordova-loader started in development mode.');
+
         async.series([
           _this.addCoreFiles,
           _this.addPluginFiles,
           _this.packFiles,
           _this.serve
         ]);
-      } else {
-        Logger.log('cordova', 'Cordova files already compiled!');
-        _this.watch();
-        _this.serve();
+      } else if (mode == "production") {
+        Logger.log('cordova', 'cordova-loader started in production mode.');
+
+         async.series([
+          _this.loadPackedFiles,
+          _this.serve,
+        ]);
       }
     }
   },
@@ -71,7 +81,7 @@ CordovaLoader = {
       }
     });
 
-    Logger.log('cordova', 'Watching cordova project plugin directory for changes..');
+    Logger.log('cordova', 'Watching Cordova project plugin directory for changes..');
   },
 
   /*
@@ -125,6 +135,30 @@ CordovaLoader = {
       pack = pack.concat(cordovaFiles.plugin[platform]);
 
       compiledFiles[platform] = UglifyJS.minify(pack, {}).code;
+
+      fs.mkdir(appPath + '/private',function(e){
+        if(!e || (e && e.code === 'EEXIST')){
+            
+        } else {
+            console.log(e);
+        }
+      });
+
+      fs.mkdir(appPath + '/private/cordova',function(e){
+        if(!e || (e && e.code === 'EEXIST')){
+            
+        } else {
+            console.log(e);
+        }
+      });
+
+      fs.writeFile(appPath + '/private/cordova/' + platform + '.js', compiledFiles[platform], function(err) {
+          if(err) {
+              console.log(err);
+          } else {
+              Logger.log('cordova', 'Saved packed Cordova file for production use.', '/private/cordova/' + platform + '.js');
+          }
+      }); 
     });
 
     callback(null, 'done');
@@ -136,13 +170,21 @@ CordovaLoader = {
   */
   addCoreFiles: function (callback) {
     platforms.forEach(function (platform) {
-      location = cordovaProjectPath + '/platforms/' + platform + '/www/cordova.js';
-      cordovaFiles.core[platform].push(location);
-      Logger.log('cordova', 'Adding ' + platform + ' corova file', location);
 
-      location = cordovaProjectPath + '/platforms/' + platform + '/www/cordova_plugins.js';
+      var path = "";
+      if (platform == "ios") {
+        path = "/www/";
+      } else if (platform == "android") {
+        path = "/assets/www/"
+      }
+
+      location = cordovaProjectPath + '/platforms/' + platform + path + 'cordova.js';
       cordovaFiles.core[platform].push(location);
-      Logger.log('cordova', 'Adding ' + platform + ' corova file', location);
+      Logger.log('cordova', 'Adding ' + platform + ' corodva file', location);
+
+      location = cordovaProjectPath + '/platforms/' + platform + path + 'cordova_plugins.js';
+      cordovaFiles.core[platform].push(location);
+      Logger.log('cordova', 'Adding ' + platform + ' corodva file', location);
     });
 
     callback(null, 'done');
@@ -155,12 +197,22 @@ CordovaLoader = {
 
     async.each(platforms, function (platform, callback) {
 
-      fs.readFile(cordovaProjectPath + '/platforms/' + platform + '/www/cordova_plugins.js', 'utf8', function (err, data) {
+      var path = "";
+      if (platform == "ios") {
+        path = "/www/";
+      } else if (platform == "android") {
+        path = "/assets/www/"
+      }
+
+      var pluginJsFilePath = cordovaProjectPath + '/platforms/' + platform + path + 'cordova_plugins.js';
+      fs.readFile(pluginJsFilePath, 'utf8', function (err, data) {
+        if (err)
+          Logger.log('error', 'error while reading file '+pluginJsFilePath);
         plugins = data.substring(data.indexOf('module.exports'), data.indexOf('module.exports.meta')).replace('module.exports = ', '').replace(';', '');
         plugins = JSON.parse(plugins);
 
         plugins.forEach(function (plugin) {
-          location = cordovaProjectPath + '/platforms/' + platform + '/www/' + plugin.file;
+          location = cordovaProjectPath + '/platforms/' + platform + path + plugin.file;
 
           cordovaFiles.plugin[platform].push(location);
           Logger.log('cordova', 'Adding ' + platform + ' plugin file', location);
@@ -174,7 +226,29 @@ CordovaLoader = {
       callback(null, 'done');
     });
 
-  }
+  },
+
+  /*
+    Load the previous version of the packed cordova files
+  */
+  loadPackedFiles: function (callback) {
+    platforms.forEach(function (platform) {
+      var pack = [],
+            concatFile = '';
+
+      fs.readFile(appPath + '/private/cordova/' + platform + '.js', 'utf8', function (err, data) {
+        if (err)
+          Logger.log('error', 'error while reading file '+pluginJsFilePath);
+        else {
+          Logger.log('cordova', 'Loaded compiled file into memory', platform);
+          compiledFiles[platform] = data;
+        }
+      });      
+    });
+
+    callback(null, 'done');
+  },
+
 }
 
 CordovaLoader.init();

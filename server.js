@@ -180,11 +180,11 @@ CordovaLoader = {
 
       location = cordovaProjectPath + '/platforms/' + platform + path + 'cordova.js';
       cordovaFiles.core[platform].push(location);
-      Logger.log('cordova', 'Adding ' + platform + ' corodva file', location);
+      Logger.log('cordova', 'Adding ' + platform + ' Cordova file', location);
 
       location = cordovaProjectPath + '/platforms/' + platform + path + 'cordova_plugins.js';
       cordovaFiles.core[platform].push(location);
-      Logger.log('cordova', 'Adding ' + platform + ' corodva file', location);
+      Logger.log('cordova', 'Adding ' + platform + ' Cordova file', location);
     });
 
     callback(null, 'done');

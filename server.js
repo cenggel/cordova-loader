@@ -233,12 +233,13 @@ CordovaLoader = {
   */
   loadPackedFiles: function (callback) {
     platforms.forEach(function (platform) {
-      var pack = [],
-            concatFile = '';
+      var appPath = path.resolve(process.argv[2]);
+      var serverDir = path.dirname(appPath);
+      var filePath = path.join(serverDir, 'assets', 'app', 'cordova', platform + '.js');
 
-      fs.readFile(appPath + '/private/cordova/' + platform + '.js', 'utf8', function (err, data) {
+      fs.readFile(filePath, 'utf8', function (err, data) {
         if (err)
-          Logger.log('error', 'error while reading file '+pluginJsFilePath);
+          Logger.log('error', 'error while reading file ' + filePath);
         else {
           Logger.log('cordova', 'Loaded compiled file into memory', platform);
           compiledFiles[platform] = data;

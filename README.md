@@ -58,7 +58,7 @@ mrt add cordova-loader
 * platforms: Array of platforms you are using  (required in development mode).
 * logging: This is optional. Just trying to give some transpency into the package. (default: true)
 
-*Note: the compiler will only run once due to live reload loop. If you want to manually rerun the compiler just delete the private/cordova/[version]/[platform].js file you want to recompile.*
+*Note: If you want to manually rerun the compiler just delete the private/cordova/[version]/[platform].js file you want to recompile.*
 
 ###### Setup
 The basic Cordova project setup is easy. Modify the `config.xml` file in the root of your Cordova project. Change `<content src="index.html" />` to `<content src="http://your-url-here?cordova=0.0.1" />`. Then run `cordova prepare` in the Cordova project directory. The `cordova` get variable is important to let Cordova Loader know that this is a request from a cordova app and the version is also important in letting Cordova Loader know which version to serve.

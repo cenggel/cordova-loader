@@ -1,5 +1,14 @@
-if (/Android|BlackBerry|iPhone|iPad|iPodIEMobile/i.test(navigator.userAgent)) {
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
+if (/Android|BlackBerry|iPhone|iPad|iPodIEMobile/i.test(navigator.userAgent) || true) {
   var script = document.createElement('script');
-  script.src = '/cordova.js';
+  window.cordovaVersion = getParameterByName('cordova');
+  script.src = '/cordova.js?version=' + cordovaVersion;
+  console.log("src", script.src);
   document.head.appendChild(script);
 }

@@ -11,7 +11,8 @@ Npm.depends({
 Package.on_use(function (api) {
     api.use([
       'log',
-      'webapp'
+      'webapp',
+      'underscore'
     ], 'server');
 
     api.add_files('server.js', 'server');

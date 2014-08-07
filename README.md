@@ -9,7 +9,7 @@ Cordova Loader's goal is to make using Meteor with Cordova as easy as using Mete
 
 This package aims to solve the shortcomings of the other meteor + cordova packages. 
 
-*Note: Currently only tested with iOS. Will test the other platforms asap.*
+*Note: Currently tested this package with iOS and Android*
 
 
 ## Installation / Setup
@@ -33,7 +33,7 @@ mrt add cordova-loader
 {
   "cordova":{
     "path": "/directory-example/cordova-project",
-    "platforms": ["ios"],
+    "platforms": ["ios", "android"],
     "logging": true
   }
 }
@@ -43,18 +43,24 @@ mrt add cordova-loader
 {
   "cordova":{
     "mode": "production",
-    "platforms": ["ios"],
     "logging": true
   }
 }
 ````
 
 ###### Options
-* path: Path to your Cordova project directory.
-* platforms: Array of platforms you are using.
-* logging: This is optional. Just trying to give some transpency into the package.
+* mode: Either production or development (default: production)
+* path: Path to your Cordova project directory (required in development mode).
+* platforms: Array of platforms you are using  (required in development mode).
+* logging: This is optional. Just trying to give some transpency into the package. (default: true)
 
-*Note: the compiler will only run once due to live reload loop. If you want to rerun the compiler after adding a plugin just delete any of the public/cordova/ files.*
+*Note: the compiler will only run once due to live reload loop. If you want to rerun the compiler after adding a plugin just delete any of the private/cordova/version files.*
+
+###### Setup
+The basic Cordova project setup is easy. Modify the `config.xml` file in the root of your Cordova project. Change `<content src="index.html" />` to `<content src="http://your-url-here?cordova=3.5.0" />`. The `cordova` get variable is important to let Cordova Loader know that this is a request from a cordova app and the version is also important in letting Cordova Loader know which version to serve.
+
+###### Versioning
+The compiled cordova files are saved in `private/cordova/[version]` directories. As new versions of Cordova come out some of the older versions of the client may still exist on phones Cordova Loader sends the version as a get variable in the request from the client. Cordova Loaders uses this version to load the correct version of the compiled assets.
 
 ================
 

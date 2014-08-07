@@ -26,7 +26,8 @@ mrt add cordova-loader
 
 ================
 
-##### Meteor settings file (development)
+##### Development
+Meteor settings file:
 ````
 {
   "app_name": "Sample App",
@@ -43,7 +44,8 @@ mrt add cordova-loader
 mrt --settings settings.json
 ````
 
-##### Meteor settings file (production)
+##### Production
+Meteor settings file:
 ````
 {
   "app_name": "Sample App",

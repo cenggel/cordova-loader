@@ -20,6 +20,8 @@ Cordova Loader makes it easy to use Cordova with remotely served mobile applicat
 ##### NPM Package Installation
 Coming soon.
 
+================
+
 ##### Meteor Package Installation
 ````
 mrt add cordova-loader

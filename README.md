@@ -58,7 +58,10 @@ Meteor settings file:
 ````
 *How to run: (assuming you ran `mrt bundle --directory ../build/bundle`*
 ```
-METEOR_SETTINGS=$(cat config/production.json) ROOT_URL=localhost:3000 PORT=3000 node ../build/bundle/main.js
+METEOR_SETTINGS=$(cat config/production.json) 
+ROOT_URL=localhost:3000 
+PORT=3000 
+node ../build/bundle/main.js
 ```
 
 ###### Options

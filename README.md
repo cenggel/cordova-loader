@@ -30,7 +30,7 @@ mrt add cordova-loader
 
 ================
 
-##### Cordova Loader Init
+##### Cordova Loader Init (server)
 ````
   var cordovaLoader = new CordovaLoader({
     version: '0.0.1',

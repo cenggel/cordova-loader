@@ -31,6 +31,8 @@ mrt add cordova-loader
 ##### Meteor settings file (development)
 ````
 {
+  "app_name": "Sample App",
+  "version": "0.0.1",
   "cordova":{
     "path": "/directory-example/cordova-project",
     "platforms": ["ios", "android"],
@@ -41,6 +43,8 @@ mrt add cordova-loader
 ##### Meteor settings file (production)
 ````
 {
+  "app_name": "Sample App",
+  "version": "0.0.1",
   "cordova":{
     "mode": "production",
     "logging": true
@@ -49,6 +53,8 @@ mrt add cordova-loader
 ````
 
 ###### Options
+* app_name: Optional application name used by the logger
+* version: Version of the Cordova application. This is used to sync the Cordova client with the loaded Cordova files (required in development mode).
 * mode: Either production or development (default: production)
 * path: Path to your Cordova project directory (required in development mode).
 * platforms: Array of platforms you are using  (required in development mode).
@@ -57,15 +63,25 @@ mrt add cordova-loader
 *Note: the compiler will only run once due to live reload loop. If you want to rerun the compiler after adding a plugin just delete any of the private/cordova/version files.*
 
 ###### Setup
-The basic Cordova project setup is easy. Modify the `config.xml` file in the root of your Cordova project. Change `<content src="index.html" />` to `<content src="http://your-url-here?cordova=3.5.0" />`. Then run `cordova prepare` in your Cordova project directory. The `cordova` get variable is important to let Cordova Loader know that this is a request from a Cordova app and the version is also important in letting Cordova Loader know which version to serve.
+The basic Cordova project setup is easy. Modify the `config.xml` file in the root of your Cordova project. Change `<content src="index.html" />` to `<content src="http://your-url-here?cordova=0.0.1" />`. The `cordova` get variable is important to let Cordova Loader know that this is a request from a cordova app and the version is also important in letting Cordova Loader know which version to serve.
 
 ###### Versioning
-The compiled Cordova files are saved in `private/cordova/[version]` directories. As new versions of Cordova are released, some of the older versions of the client may still exist on phones Cordova Loader sends the version as a get variable in the request from the client. Cordova Loaders uses the get variable specified version to load the correct version of the compiled assets.
+The compiled cordova files are saved in `private/cordova/[version]` directories. As you release new versions of your app some of the older versions of the client may still be installed on devices. Cordova Loader sends the version as a get variable in the request from the client. Cordova Loaders uses this version to load the correct version of the compiled assets.
 
 ================
 
 #### Comparison of Meteor + Cordova methods/packages
 * [Meteor + Cordova Methods](https://github.com/andrewreedy/meteor-cordova-loader/wiki/Meteor---Cordova-Methods) - Pros / Cons to the different packages / ways of combining meteor with Cordova.
+
+#### Cordova Setup Guide
+* [Cordova Setup Guide](https://github.com/andrewreedy/meteor-cordova-loader/wiki/Cordova-Setup) - Instructions on how to setup the basic Cordova project needed to get started. (coming soon).
+
+#### Recommended Cordova Plugins
+* [Cordova Plugin Guide](https://github.com/andrewreedy/meteor-cordova-loader/wiki/Cordova-Plugins) - Plugins necessary to make the Meteor app feel native. Also, an overview of optional plugins like setting up push notificaitons and geolocation.
+
+#### Platform Setup Guides
+* [iOS Setup Guide](https://github.com/andrewreedy/meteor-cordova-loader/wiki/iOS-Setup) - Detailed walkthrough of steps to setup the iOS Cordova project.
+* [Android Setup Guide](https://github.com/andrewreedy/meteor-cordova-loader/wiki/Anroid-Setup) - Detailed walkthrough of steps to setup Android Cordova project. (coming soon).
 
 #### Facebook Native SDK
 * [accounts-facebook-cordova](https://github.com/andrewreedy/meteor-accounts-facebook-cordova) - Works with the cordova plugin to use facebook single sign on when it exists otherwise use standar oauth package.

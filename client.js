@@ -7,8 +7,7 @@ function getParameterByName(name) {
 
 if (/Android|BlackBerry|iPhone|iPad|iPodIEMobile/i.test(navigator.userAgent) || true) {
   var script = document.createElement('script');
-  window.cordovaVersion = getParameterByName('cordova');
-  script.src = '/cordova.js?version=' + cordovaVersion;
-  console.log("src", script.src);
+  window.cordovaAppVersion = getParameterByName('cordova');
+  script.src = '/cordova.js?version=' + cordovaAppVersion;
   document.head.appendChild(script);
 }

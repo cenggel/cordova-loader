@@ -4,7 +4,7 @@ var fs = Npm.require('fs'),
       UglifyJS = Npm.require('uglify-js'),
       watch = Npm.require('watch'),
       url = Npm.require('url'),
-      appPath = path.resolve('../../../../../');
+      
 
 CordovaLoader = {
 
@@ -12,10 +12,12 @@ CordovaLoader = {
     Meteor Settings
   */
   options: {
-    cordovaProjectPath: Meteor.settings && Meteor.settings.cordova && Meteor.settings.cordova.path && path.resolve(appPath, Meteor.settings.cordova.path) || null,
+    appPath: path.resolve('../../../../../'),
+    cordovaProjectPath: Meteor.settings && Meteor.settings.cordova && Meteor.settings.cordova.path && path.resolve(path.resolve('../../../../../'), Meteor.settings.cordova.path) || null,
     platforms: Meteor.settings && Meteor.settings.cordova && Meteor.settings.cordova.platforms || [],
     logging: Meteor.settings && Meteor.settings.cordova && Meteor.settings.cordova.logging || false,
     mode: Meteor.settings && Meteor.settings.cordova && Meteor.settings.cordova.mode || 'development',
+    version: Meteor.settings && Meteor.settings.cordova && Meteor.settings.version || null
   },
 
   /*
@@ -26,7 +28,7 @@ CordovaLoader = {
     plugin: {}
   },
   compiledFiles: {},
-  version: null,
+  platformsToCompile: [],
 
   /*
     Set up the package and determine if the assets need compiled
@@ -43,10 +45,18 @@ CordovaLoader = {
       Logger.log('cordova', '');
       Logger.log('cordova', 'Options:');
 
+      // Check for version
+      if (!this.options.platforms.length) {
+        Logger.log('error', 'No version specified. Please refer to the settings options in the documentation.');
+        return;
+      } else {
+        Logger.log('cordova', 'App Version', this.options.version);
+      }
+
       // Check for Cordova project path
       if (this.options.cordovaProjectPath == null) {
         Logger.log('error', 'No Cordova project path provided. Please refer to the settings options in the documentation.');
-        return false;
+        return;
       } else {
         Logger.log('cordova', 'Cordova Project Path:', this.options.cordovaProjectPath);
       }
@@ -54,7 +64,7 @@ CordovaLoader = {
       // Check for enabled platforms
       if (!this.options.platforms.length) {
         Logger.log('error', 'No platforms enabled. Please refer to the settings options in the documentation.');
-        return false;
+        return;
       } else {
         Logger.log('cordova', 'Enabled Platforms', this.options.platforms.join(', '));
       }
@@ -62,24 +72,55 @@ CordovaLoader = {
       Logger.log('cordova', '');
       Logger.log('cordova', '-------------------------------------------');
       Logger.log('cordova', '');
-      Logger.log('cordova', 'Compiling files...');
+      Logger.log('cordova', 'Checking compiled files...');
 
-      this.options.platforms.forEach(function (platform) {
-        _this.cordovaFiles.plugin[platform] = [];
-        _this.cordovaFiles.core[platform] = [];
+      async.each(this.options.platforms, function( platform, callback) {
+        var pack = [],
+               concatFile = '',
+               savePath = _this.options.appPath + '/private/cordova/' + _this.options.version + '/' + platform + '.js';
+               
+        if (fs.existsSync(savePath)) {
+          Logger.log('cordova', 'Compiled file found, remove it to overwrite or bump the version number', savePath);
+        } else {
+          _this.platformsToCompile.push(platform);
+        }
+        callback();
+      }, function(err){
+       if (_this.platformsToCompile.length > 0) {
+
+          Logger.log('cordova', '');
+          Logger.log('cordova', '-------------------------------------------');
+          Logger.log('cordova', '');
+          Logger.log('cordova', 'Compiling files...');
+
+          _this.compiledFiles[_this.options.version] = {};
+
+          _this.options.platforms.forEach(function (platform) {
+            _this.cordovaFiles.plugin[platform] = [];
+            _this.cordovaFiles.core[platform] = [];
+          });
+
+          async.series([
+            _this.addCoreFiles.bind(_this),
+            _this.addPluginFiles.bind(_this),
+            _this.compileFiles.bind(_this),
+            _this.serve.bind(_this)
+          ]);
+
+        } else {
+
+          async.series([
+            _this.loadCompiledFiles.bind(_this),
+            _this.serve.bind(_this),
+          ]);
+    
+        }
       });
-
-      async.series([
-        this.addCoreFiles.bind(this),
-        this.addPluginFiles.bind(this),
-        this.packFiles.bind(this),
-        this.serve.bind(this)
-      ]);
 
     } else if (this.options.mode == 'production') {
 
        async.series([
-        this.loadPackedFiles.bind(this),
+        this.loadCompiledFiles.bind(this),
         this.serve.bind(this),
       ]);
 
@@ -135,11 +176,17 @@ CordovaLoader = {
         response = '// Browser not supported';
       } else {
 
-        version = query && query.version || '3.5.0'
+        version = query && query.cordova
+
+        console.log(query);
+
+        if (!version) {
+
+        }
 
         if (!_this.compiledFiles[version]) {
           Logger.log('error', 'Client requested a version of Cordova which cannot be found', 'version: ' +version + ', platform: ' + platform);
-          return false;
+          return;
         }
 
         response = _this.compiledFiles[version][platform];
@@ -158,7 +205,7 @@ CordovaLoader = {
   /*
     Concat and minify the platform specific bundles
   */
-  packFiles: function (callback) {
+  compileFiles: function (callback) {
     var _this = this;
 
     Logger.log('cordova', '');
@@ -166,18 +213,17 @@ CordovaLoader = {
     Logger.log('cordova', '');
     Logger.log('cordova', 'Saving files...');
 
-    this.options.platforms.forEach(function (platform) {
+    this.platformsToCompile.forEach(function (platform) {
       var pack = [],
              concatFile = '',
-             version = _this.version,
-             savePath = appPath + '/private/cordova/' + version + '/' + platform + '.js';
+             savePath = _this.options.appPath + '/private/cordova/' + _this.options.version + '/' + platform + '.js';
 
       pack = pack.concat(_this.cordovaFiles.core[platform]);
       pack = pack.concat(_this.cordovaFiles.plugin[platform]);
 
-      _this.compiledFiles[version][platform] = UglifyJS.minify(pack, {}).code;
+      _this.compiledFiles[_this.options.version][platform] = UglifyJS.minify(pack, {}).code;
 
-      fs.mkdir(appPath + '/private',function(err){
+      fs.mkdir(_this.options.appPath + '/private',function(err){
         if(!err || (err && err.code === 'EEXIST')){
             
         } else {
@@ -185,7 +231,7 @@ CordovaLoader = {
         }
       });
 
-      fs.mkdir(appPath + '/private/cordova',function(err){
+      fs.mkdir(_this.options.appPath + '/private/cordova',function(err){
         if(!err || (err && err.code === 'EEXIST')){
             
         } else {
@@ -193,7 +239,7 @@ CordovaLoader = {
         }
       });
 
-      fs.mkdir(appPath + '/private/cordova/' + version,function(err){
+      fs.mkdir(_this.options.appPath + '/private/cordova/' + _this.options.version,function(err){
         if(!err || (err && err.code === 'EEXIST')){
             
         } else {
@@ -203,13 +249,13 @@ CordovaLoader = {
 
       fs.exists(savePath, function(exists) {
         if (exists) {
-          Logger.log('cordova', 'File already exists, remove it to overwrite', savePath);
+          Logger.log('cordova', 'File already exists, remove it to overwrite or bump the version number', savePath);
         } else {
-          fs.writeFile(savePath, _this.compiledFiles[version][platform], function(err) {
+          fs.writeFile(savePath, _this.compiledFiles[_this.options.version][platform], function(err) {
             if(err) {
               Logger.log('error', err);
             } else {
-              Logger.log('cordova', 'Saved packed Cordova file for production use.', savePath);
+              Logger.log('cordova', 'Saved compiled Cordova file for production use.', savePath);
             }
           }); 
         }
@@ -222,12 +268,12 @@ CordovaLoader = {
 
 
   /*
-    Add the platform's core cordova files to the list to be packed
+    Add the platform's core cordova files to the list to be compiled
   */
   addCoreFiles: function (callback) {
     var _this = this; 
 
-    this.options.platforms.forEach(function (platform) {
+    this.platformsToCompile.forEach(function (platform) {
       var wwwPath = '',
              location;
 
@@ -238,18 +284,6 @@ CordovaLoader = {
       }
 
       location = path.join(_this.options.cordovaProjectPath, 'platforms', platform, wwwPath, 'cordova.js');
-
-      fs.readFile(location, 'utf8', function (err, data) {
-        if (err)
-          Logger.log('error', 'error while reading file '+location);
-
-        if (_this.version == null) {
-          _this.version = data.substring(data.indexOf('CORDOVA_JS_BUILD_LABEL'), data.indexOf(';', data.indexOf('CORDOVA_JS_BUILD_LABEL')) - 1).replace('CORDOVA_JS_BUILD_LABEL = ', '').replace("'", '');
-          _this.compiledFiles[_this.version] = {};
-          Logger.log('cordova', 'Cordova version detected', _this.version);
-        }
-      });
-
       _this.cordovaFiles.core[platform].push(location);
       Logger.log('cordova', 'Adding ' + platform + ' Corodva file');
 
@@ -263,12 +297,12 @@ CordovaLoader = {
   },
 
   /*
-    Add the platform's plugin cordova files to the list to be packed
+    Add the platform's plugin cordova files to the list to be compiled
   */
   addPluginFiles: function (callback) {
     var _this = this;
 
-    async.each(this.options.platforms, function (platform, callback) {
+    async.each(this.platformsToCompile, function (platform, callback) {
       var wwwPath = '',
              location;
 
@@ -303,20 +337,31 @@ CordovaLoader = {
   },
 
   /*
-    Load the previous version of the packed cordova files
+    Load the previous version of the compiled cordova files
   */
-  loadPackedFiles: function (callback) {
-    var versions = [],
-          appPath = path.resolve(process.argv[2]),
-          serverPath = path.dirname(appPath),
-          versionsPath = path.join(serverPath, 'assets', 'app', 'cordova'),
-          files = fs.readdirSync(versionsPath),
-          versions = [],
+  loadCompiledFiles: function (callback) {
+    var _this = this, 
+          versions = []
           filePath, stat;
+
+    Logger.log('cordova', '');
+    Logger.log('cordova', '-------------------------------------------');
+    Logger.log('cordova', '');
+    Logger.log('cordova', 'Loading compiled files...');
+
+    if (this.options.mode == 'development') {
+      var versionsPath = path.join(this.options.appPath,'private', 'cordova');
+    } else if (this.options.mode == 'production') {
+      var
+        appPath = path.resolve(process.argv[2]),
+        versionsPath = path.join(path.dirname(appPath), 'assets', 'app', 'cordova');
+    }
+
+    var files = fs.readdirSync(path.join(versionsPath));
 
     _.each(files, function(file) {
       if (file[0] !== '.') {
-        filePath = path.join(serverPath, 'assets', 'app', 'cordova', file);
+        filePath = path.join(versionsPath, file);
         stat = fs.statSync(filePath);
         if (stat.isDirectory()) {
           versions.push(file);
@@ -330,7 +375,7 @@ CordovaLoader = {
     this.options.platforms.forEach(function (platform) {      
       _.each(versions, function(version) {
 
-        var filePath = path.join(serverPath, 'assets', 'app', 'cordova', version, platform + '.js');      
+        var filePath = path.join(versionsPath, version, platform + '.js');      
 
         fs.readFile(filePath, 'utf8', function (err, data) {
           if (err)

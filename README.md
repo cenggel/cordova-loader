@@ -5,7 +5,7 @@ Cordova Asset Compiler & Loader
 
 Cordova Loader makes it easy to use Cordova with remotely served mobile applications. The compiler interprets the provided Cordova project directory and compiles the assets into minified, platform-specific, versioned JavaScript which is stored in memory. When the client loads, it automatically pulls in the platform-specific cordova code for that device. The Cordova API can be used the same as it is in the Cordova documentation. Cordova Loader was built for use in Meteor but will soon be able to be used by any Javascript/Node.js applcation. Enjoy!
 
-![demo](http://cl.ly/image/29231q3f0N46/Image%202014-06-30%20at%2010.40.07%20AM.png)
+![demo](https://raw.githubusercontent.com/andrewreedy/cordova-loader/master/screenshot.png)
 
 *Note: Currently tested this package with iOS and Android*
 

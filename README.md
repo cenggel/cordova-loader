@@ -66,6 +66,9 @@ The basic Cordova project setup is easy. Modify the `config.xml` file in the roo
 ###### Versioning
 The compiled Cordova files are saved in `private/cordova/[version]` directories. As you release new versions of your app some of the older versions of the client may still be installed on devices. Cordova Loader sends the version as a get variable in the request from the client. Cordova Loader uses this version to load the correct version of the compiled assets. Inside the Meteor app handling graceful versioning is up to you. The global variable `window.cordovaAppVersion` is avaialble to determine which version of the Cordova app the client is running and which features you can enable. It is important for you to bump the version as you release changes to the Cordova project to the app stores / production so that you have support for the older versions of your application. It would be a good idea to use an analytics platform to keep track of the version distribution and then in the client alert the users of really old apps to upgrade so that you don't have to maintain really old versions of the application.
 
+###### Off-line Support
+As this package is just for compiling and loading Cordova assets, I will release an actual Cordova plugin which handles the graceful fallback and transition to offline mode with options. I'm already using it in my apps, but I need to clean it up a bit for release.
+
 ================
 
 #### Comparison of Meteor + Cordova methods/packages

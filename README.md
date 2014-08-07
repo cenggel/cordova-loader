@@ -38,6 +38,11 @@ mrt add cordova-loader
   }
 }
 ````
+*How to run:*
+````
+mrt --settings settings.json
+````
+
 ##### Meteor settings file (production)
 ````
 {
@@ -49,6 +54,10 @@ mrt add cordova-loader
   }
 }
 ````
+*How to run: (assuming you ran `mrt bundle --directory ../build/bundle`*
+```
+METEOR_SETTINGS=$(cat config/production.json) ROOT_URL=localhost:3000 PORT=3000 node ../build/bundle/main.js
+```
 
 ###### Options
 * app_name: Optional application name used by the logger

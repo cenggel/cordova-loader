@@ -32,7 +32,7 @@ mrt add cordova-loader
   "app_name": "Sample App",
   "version": "0.0.1",
   "cordova":{
-    "path": "/directory-example/cordova-project",
+    "path": "../cordova-project",
     "platforms": ["ios", "android"],
     "logging": true
   }

@@ -3,11 +3,11 @@ Cordova Asset Compiler & Loader
 
 ## Introduction
 
-Cordova Loader's goal is to make using Meteor with Cordova as easy as using Meteor itself. The compiler interprets the provided Cordova project directory and compiles the assets into minified, platform-specific JavaScript which is stored in memory. When the client loads, it automatically pulls in the platform-specific cordova code for that device. The Cordova API can be used from Meteor the same as it is from vanilla JS apps. Enjoy!
+Cordova Loader's goal is to make using Meteor with Cordova as easy as using Meteor itself. The compiler interprets the provided Cordova project directory and compiles the assets into minified, platform-specific JavaScript which is stored in memory. When the client loads, it automatically pulls in the platform-specific Cordova code for that device. The Cordova API can be used from Meteor the same as it is from vanilla JS apps. Enjoy!
 
 ![demo](http://cl.ly/image/29231q3f0N46/Image%202014-06-30%20at%2010.40.07%20AM.png)
 
-This package aims to solve the shortcomings of the other meteor + cordova packages. 
+This package aims to solve the shortcomings of the other Meteor + Cordova packages. 
 
 *Note: Currently tested this package with iOS and Android*
 
@@ -24,7 +24,7 @@ This package aims to solve the shortcomings of the other meteor + cordova packag
 ````
 mrt add cordova-loader
 ````
-*Note: I would also suggest adding the [appcache-extra](http://github.com/andrewreedy/meteor-appcache-extra) package. It will cache the cordova/platform file after it is loaded once and gives you a way to handle appcache reloads with better UX.*
+*Note: I would also suggest adding the [appcache-extra](http://github.com/andrewreedy/meteor-appcache-extra) package. It will cache the Cordova/platform file after it is loaded once and gives you a way to handle appcache reloads with better UX.*
 
 ================
 
@@ -66,7 +66,7 @@ mrt add cordova-loader
 The basic Cordova project setup is easy. Modify the `config.xml` file in the root of your Cordova project. Change `<content src="index.html" />` to `<content src="http://your-url-here?cordova=0.0.1" />`. The `cordova` get variable is important to let Cordova Loader know that this is a request from a cordova app and the version is also important in letting Cordova Loader know which version to serve.
 
 ###### Versioning
-The compiled cordova files are saved in `private/cordova/[version]` directories. As you release new versions of your app some of the older versions of the client may still be installed on devices. Cordova Loader sends the version as a get variable in the request from the client. Cordova Loaders uses this version to load the correct version of the compiled assets.
+The compiled Cordova files are saved in `private/cordova/[version]` directories. As you release new versions of your app some of the older versions of the client may still be installed on devices. Cordova Loader sends the version as a get variable in the request from the client. Cordova Loaders uses this version to load the correct version of the compiled assets. Inside the Meteor app handling graceful versioning is up to you. The global variable `window.cordovaAppVersion` is avaialble to determine which version of the Cordova app the client is running and which features you can enable.
 
 ================
 

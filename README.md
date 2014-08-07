@@ -7,8 +7,6 @@ Cordova Loader's goal is to make using Meteor with Cordova as easy as using Mete
 
 ![demo](http://cl.ly/image/29231q3f0N46/Image%202014-06-30%20at%2010.40.07%20AM.png)
 
-This package aims to solve the shortcomings of the other Meteor + Cordova packages. 
-
 *Note: Currently tested this package with iOS and Android*
 
 
@@ -72,16 +70,6 @@ The compiled Cordova files are saved in `private/cordova/[version]` directories.
 
 #### Comparison of Meteor + Cordova methods/packages
 * [Meteor + Cordova Methods](https://github.com/andrewreedy/meteor-cordova-loader/wiki/Meteor---Cordova-Methods) - Pros / Cons to the different packages / ways of combining meteor with Cordova.
-
-#### Cordova Setup Guide
-* [Cordova Setup Guide](https://github.com/andrewreedy/meteor-cordova-loader/wiki/Cordova-Setup) - Instructions on how to setup the basic Cordova project needed to get started. (coming soon).
-
-#### Recommended Cordova Plugins
-* [Cordova Plugin Guide](https://github.com/andrewreedy/meteor-cordova-loader/wiki/Cordova-Plugins) - Plugins necessary to make the Meteor app feel native. Also, an overview of optional plugins like setting up push notificaitons and geolocation.
-
-#### Platform Setup Guides
-* [iOS Setup Guide](https://github.com/andrewreedy/meteor-cordova-loader/wiki/iOS-Setup) - Detailed walkthrough of steps to setup the iOS Cordova project.
-* [Android Setup Guide](https://github.com/andrewreedy/meteor-cordova-loader/wiki/Anroid-Setup) - Detailed walkthrough of steps to setup Android Cordova project. (coming soon).
 
 #### Facebook Native SDK
 * [accounts-facebook-cordova](https://github.com/andrewreedy/meteor-accounts-facebook-cordova) - Works with the cordova plugin to use facebook single sign on when it exists otherwise use standar oauth package.

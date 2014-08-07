@@ -80,7 +80,7 @@ CordovaLoader = {
                savePath = _this.options.appPath + '/private/cordova/' + _this.options.version + '/' + platform + '.js';
                
         if (fs.existsSync(savePath)) {
-          Logger.log('cordova', 'Compiled file found, remove it to overwrite or bump the version number', savePath);
+          Logger.log('cordova', 'Compiled file found, remove it to recompile or bump the version number to release a new version.', savePath);
         } else {
           _this.platformsToCompile.push(platform);
         }
@@ -176,12 +176,11 @@ CordovaLoader = {
         response = '// Browser not supported';
       } else {
 
-        version = query && query.cordova
-
-        console.log(query);
+        version = query && query.version
 
         if (!version) {
-
+          Logger.log('error', 'Client requested cordova.js without specifying a version.');
+          return;
         }
 
         if (!_this.compiledFiles[version]) {
@@ -249,7 +248,7 @@ CordovaLoader = {
 
       fs.exists(savePath, function(exists) {
         if (exists) {
-          Logger.log('cordova', 'File already exists, remove it to overwrite or bump the version number', savePath);
+          Logger.log('cordova', 'File already exists, remove it to recompile or bump the version number', savePath);
         } else {
           fs.writeFile(savePath, _this.compiledFiles[_this.options.version][platform], function(err) {
             if(err) {

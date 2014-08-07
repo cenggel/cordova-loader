@@ -53,7 +53,7 @@ mrt add cordova-loader
 ###### Options
 * app_name: Optional application name used by the logger
 * version: Version of the Cordova application. This is used to sync the Cordova client with the loaded Cordova files (required in development mode).
-* mode: Either production or development (default: production)
+* mode: Either production or development (default: development)
 * path: Path to your Cordova project directory (required in development mode).
 * platforms: Array of platforms you are using  (required in development mode).
 * logging: This is optional. Just trying to give some transpency into the package. (default: true)

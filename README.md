@@ -41,7 +41,7 @@ Meteor settings file:
 ````
 *How to run:*
 ````
-mrt --settings settings.json
+mrt --settings config/development.json
 ````
 
 ##### Production
@@ -99,12 +99,6 @@ As this package is just for compiling and loading Cordova assets, I will release
 #### Example Apps
 * [Meteor Cordova Todo](https://github.com/andrewreedy/meteor-cordova-todo) - Just started working on this. This will eventually be a working app as an example.
 
-## Final Notes
-
-##### Running your app with settings
-````
-mrt --settings settings.json
-````
 ================
 
 If you want more features than this provides, file an issue. Feature requests/contributions are welcome.

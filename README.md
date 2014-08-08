@@ -32,13 +32,13 @@ mrt add cordova-loader
 
 ##### Cordova Loader Init (server)
 ````Javascript
-  var cordovaLoader = new CordovaLoader({
-    version: '0.0.1',
-    mode: 'development',
-    logging: true,
-    platforms: ['ios', 'android'],
-    path: '../cordova'
-  });
+var cordovaLoader = new CordovaLoader({
+  version: '0.0.1',
+  mode: 'development',
+  logging: true,
+  platforms: ['ios', 'android'],
+  path: '../cordova'
+});
 ````
 ###### Options
 * version: Version of the Cordova application. This is used to sync the Cordova client with the loaded Cordova files (required in development mode).

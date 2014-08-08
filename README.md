@@ -2,8 +2,7 @@ Cordova Asset Compiler & Loader
 ================
 
 ## Introduction
-
-Cordova Loader makes it easy to use Cordova with remotely served mobile applications. The compiler interprets the provided Cordova project directory and compiles the assets into minified, platform-specific, versioned JavaScript which is loaded into memory and stored in versioned directories for production use / bundling. When the client loads, it automatically pulls in the platform-specific cordova code for that device. The Cordova API can be used the same as it is in the Cordova documentation. Cordova Loader was built for use with Meteor but is now available to be used by any Javascript/Node.js applcation through NPM. Enjoy!
+Cordova Loader is a library for using Cordova with remotely served web applications. The compiler interprets the provided Cordova project directory and compiles the assets into minified, platform-specific, versioned files which are loaded into memory and stored in versioned directories for production use / bundling. When the client loads, it automatically pulls in the platform-specific file for that device. The Cordova API can be used the same as it is in the Cordova documentation. Cordova Loader was built for use with Meteor but is now available to be used by any Javascript/Node.js applcation through NPM. Enjoy!
 
 ![demo](https://raw.githubusercontent.com/andrewreedy/cordova-loader/master/screenshot.png)
 
@@ -72,16 +71,16 @@ As this package is just for compiling and loading Cordova assets, I will release
 
 ## Meteor Notes
 
-#### Comparison of Meteor + Cordova methods/packages
+##### Comparison of Meteor + Cordova methods/packages
 * [Meteor + Cordova Methods](https://github.com/andrewreedy/cordova-loader/wiki/Meteor---Cordova-Methods) - Pros / Cons to the different packages / ways of combining meteor with Cordova.
 
-#### Facebook Native SDK
+##### Facebook Native SDK
 * [accounts-facebook-cordova](https://github.com/andrewreedy/meteor-accounts-facebook-cordova) - Works with the cordova plugin to use facebook single sign on when it exists otherwise use standar oauth package.
 
-#### Famo.us Integration
+##### Famo.us Integration
 * [celestial](https://github.com/andrewreedy/meteor-celestial) - Package to make using Famo.us with Meteor easier.
 
-#### Example Apps
+##### Example Apps
 * [Meteor Cordova Todo](https://github.com/andrewreedy/meteor-cordova-todo) - Just started working on this. This will eventually be a working app as an example.
 
 ================

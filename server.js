@@ -10,7 +10,7 @@
 if (typeof Meteor === 'undefined') {
 
   var 
-  fs = require('fs'),
+  fs = require('node-fs'),
   path = require('path'),
   url = require('url'),
   async = require('async'),
@@ -20,12 +20,12 @@ if (typeof Meteor === 'undefined') {
 } else {
 
   var 
-  fs = Npm.require('fs'),
+  fs = Npm.require('node-fs'),
   path = Npm.require('path'),
   url = Npm.require('url'),
   async = Npm.require('async'),
   UglifyJS = Npm.require('uglify-js'),
-  watch = Npm.require('watch');  
+  watch = Npm.require('watch');
 
 }
 
@@ -34,14 +34,13 @@ if (typeof Meteor === 'undefined') {
  *
  * @constructor
  * @this {CordovaLoader}
- * @param {object}  The desired radius of the circle.
+ * @param {object} options: The desired radius of the circle.
  */      
 function cl (options) {
 
   // CordovaLoader options
   this._options = {
-    appPath: path.resolve('../../../../../'),
-    cordovaProjectPath: null,
+    appPath: process.env.PWD,
     platforms: [],
     logging: false,
     mode: 'development',
@@ -50,7 +49,14 @@ function cl (options) {
 
   _.extend(this._options, options);
 
-  this._options.cordovaProjectPath = this._options.cordovaProjectPath && path.resolve(path.resolve('../../../../../'), this._options.cordovaProjectPath);
+  // Cordova Project Path
+  this._options.cordovaProjectPath = this._options.cordovaPath && path.resolve(process.env.PWD, options.cordovaPath) || null;
+
+  // Development Save Path
+  this._options.savePath = this._options.savePath && path.resolve(process.env.PWD, options.savePath) || path.join(process.env.PWD, 'private', 'cordova');
+
+  // Production Load Path
+  this._options.loadPath = this._options.loadPath && path.resolve(process.env.PWD, options.loadPath) || path.join(process.env.PWD, 'assets', 'app', 'cordova');
 
   // Cordova files list placeholder 
   this._cordovaFiles = {
@@ -115,12 +121,10 @@ cl.prototype._init = function () {
     Logger.log('cordova', 'Checking compiled files...');
 
     async.each(this._options.platforms, function( platform, callback) {
-      var pack = [],
-             concatFile = '',
-             savePath = self._options.appPath + '/private/cordova/' + self._options.version + '/' + platform + '.js';
+      var filePath = path.join(self._options.savePath, self._options.version, platform + '.js');
              
-      if (fs.existsSync(savePath)) {
-        Logger.log('cordova', 'Compiled file found, remove it to recompile or bump the version number to release a new version.', savePath);
+      if (fs.existsSync(filePath)) {
+        Logger.log('cordova', 'Compiled file found, remove it to recompile or bump the version number to release a new version.', filePath);
       } else {
         self._platformsToCompile.push(platform);
       }
@@ -252,35 +256,16 @@ cl.prototype._compileFiles = function (callback) {
   Logger.log('cordova', 'Saving files...');
 
   this._platformsToCompile.forEach(function (platform) {
-    var pack = [],
-           concatFile = '',
-           savePath = self._options.appPath + '/private/cordova/' + self._options.version + '/' + platform + '.js';
+    var files = [],
+           versionPath = path.join(self._options.savePath, self._options.version),
+           savePath = path.join(versionPath, platform + '.js');
 
-    pack = pack.concat(self._cordovaFiles.core[platform]);
-    pack = pack.concat(self._cordovaFiles.plugin[platform]);
+    files = files.concat(self._cordovaFiles.core[platform]).concat(self._cordovaFiles.plugin[platform]);
 
-    self._compiledFiles[self._options.version][platform] = UglifyJS.minify(pack, {}).code;
+    self._compiledFiles[self._options.version][platform] = UglifyJS.minify(files, {}).code;
 
-    fs.mkdir(self._options.appPath + '/private',function(err){
-      if(!err || (err && err.code === 'EEXIST')){
-          
-      } else {
-        Logger.log('error', err);
-      }
-    });
-
-    fs.mkdir(self._options.appPath + '/private/cordova',function(err){
-      if(!err || (err && err.code === 'EEXIST')){
-          
-      } else {
-        Logger.log('error', err);
-      }
-    });
-
-    fs.mkdir(self._options.appPath + '/private/cordova/' + self._options.version,function(err){
-      if(!err || (err && err.code === 'EEXIST')){
-          
-      } else {
+    fs.mkdir(versionPath,function(err){
+      if (err && err.code != 'EEXIST') {
         Logger.log('error', err);
       }
     });
@@ -319,11 +304,11 @@ cl.prototype._loadCompiledFiles = function (callback) {
   Logger.log('cordova', 'Loading compiled files...');
 
   if (this._options.mode == 'development') {
-    var versionsPath = path.join(this._options.appPath,'private', 'cordova');
+    var versionsPath = this._options.savePath;
   } else if (this._options.mode == 'production') {
     var
       appPath = path.dirname(path.resolve(process.argv[2])),
-      versionsPath = path.join(appPath, 'assets', 'app', 'cordova');
+      versionsPath = this._options.loadPath;
   }
 
   var files = fs.readdirSync(path.join(versionsPath));

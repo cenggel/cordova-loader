@@ -5,7 +5,7 @@ function getParameterByName(name) {
     return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
-if (/Android|BlackBerry|iPhone|iPad|iPodIEMobile/i.test(navigator.userAgent) || true) {
+if (getParameterByName('cordova')) {
   var script = document.createElement('script');
   window.cordovaAppVersion = getParameterByName('cordova');
   script.src = '/cordova.js?version=' + cordovaAppVersion;

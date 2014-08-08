@@ -6,7 +6,7 @@ Cordova Loader is a library for using Cordova with remotely served web applicati
 
 ![demo](https://raw.githubusercontent.com/andrewreedy/cordova-loader/master/screenshot.png)
 
-*Note: Currently tested this package with iOS and Android*
+*Note: Currently tested with iOS and Android*
 
 ## Installation / Setup
 

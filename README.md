@@ -27,7 +27,6 @@ npm install cordova-loader
 ````
 mrt add cordova-loader
 ````
-*Note: I would also suggest adding the [appcache-extra](http://github.com/andrewreedy/meteor-appcache-extra) package. It will cache the Cordova/platform file after it is loaded once and gives you a way to handle appcache reloads with better UX.*
 
 ================
 
@@ -70,6 +69,9 @@ As this package is just for compiling and loading Cordova assets, I will release
 ================
 
 ## Meteor Companion Packages
+
+##### Appcache Extra
+* [appcache-extra](http://github.com/andrewreedy/meteor-appcache-extra) - It will cache the Cordova/platform file after it is loaded once and gives you a way to handle appcache reloads with better UX.
 
 ##### Facebook Native SDK
 * [accounts-facebook-cordova](https://github.com/andrewreedy/meteor-accounts-facebook-cordova) - Works with the cordova plugin to use facebook single sign on when it exists otherwise use standar oauth package.

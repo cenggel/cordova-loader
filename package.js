@@ -16,7 +16,7 @@ Package.on_use(function (api) {
       'underscore'
     ], 'server');
 
-    api.add_files('server.js', 'server');
-    api.add_files('client.js', 'client');
+    api.add_files('lib/server.js', 'server');
+    api.add_files('lib/client.js', 'client');
     api.export('CordovaLoader');
 });

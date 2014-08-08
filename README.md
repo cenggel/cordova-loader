@@ -17,21 +17,21 @@ Cordova Loader is a library for using Cordova with remotely served web applicati
 ================
 
 ##### NPM Package Installation
-````
+````Shell
 npm install cordova-loader
 ````
 
 ================
 
 ##### Meteor Package Installation
-````
+````Shell
 mrt add cordova-loader
 ````
 
 ================
 
 ##### Cordova Loader Init (server)
-````
+````Javascript
   var cordovaLoader = new CordovaLoader({
     version: '0.0.1',
     mode: 'development',

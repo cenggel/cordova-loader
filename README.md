@@ -37,7 +37,7 @@ var cordovaLoader = new CordovaLoader({
   mode: 'development',
   logging: true,
   platforms: ['ios', 'android'],
-  path: '../cordova'
+  cordovaPath: '../cordova'
 });
 ````
 ###### Options

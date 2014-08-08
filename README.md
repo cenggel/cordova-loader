@@ -3,7 +3,7 @@ Cordova Asset Compiler & Loader
 
 ## Introduction
 
-Cordova Loader makes it easy to use Cordova with remotely served mobile applications. The compiler interprets the provided Cordova project directory and compiles the assets into minified, platform-specific, versioned JavaScript which is loaded into memory and stored in versioned directories for production use / bundling. When the client loads, it automatically pulls in the platform-specific cordova code for that device. The Cordova API can be used the same as it is in the Cordova documentation. Cordova Loader was built for use in Meteor but will soon be able to be used by any Javascript/Node.js applcation. Enjoy!
+Cordova Loader makes it easy to use Cordova with remotely served mobile applications. The compiler interprets the provided Cordova project directory and compiles the assets into minified, platform-specific, versioned JavaScript which is loaded into memory and stored in versioned directories for production use / bundling. When the client loads, it automatically pulls in the platform-specific cordova code for that device. The Cordova API can be used the same as it is in the Cordova documentation. Cordova Loader was built for use with Meteor but is now available to be used by any Javascript/Node.js applcation through NPM. Enjoy!
 
 ![demo](https://raw.githubusercontent.com/andrewreedy/cordova-loader/master/screenshot.png)
 
@@ -51,7 +51,7 @@ mrt add cordova-loader
 * savePath: Path to save the compiled assets (default: private/cordova).
 * loadPath: Path to load the compiled assets in production (default: assets/app/cordova).
 
-*Note: If you want to manually rerun the compiler just delete the private/cordova/[version]/[platform].js file you want to recompile.*
+*Note: If you want to manually rerun the compiler just delete the [savePath]/[version]/[platform].js file you want to recompile.*
 
 ================
 
@@ -61,7 +61,7 @@ The basic Cordova project setup is easy. Modify the `config.xml` file in the roo
 ================
 
 ##### Versioning
-The compiled Cordova files are saved in `private/cordova/[version]` directories. As you release new versions of your app some of the older versions of the client may still be installed on devices. Cordova Loader sends the version as a get variable in the request from the client. Cordova Loader uses this version to load the correct version of the compiled assets. Inside your app handling graceful versioning is up to you. The global variable `window.cordovaAppVersion` is avaialble to determine which version of the Cordova app the client is running and which features you can enable. It is important for you to bump the version as you release changes to the Cordova project to the app stores / production so that you have support for the older versions of your application. It would be a good idea to use an analytics platform to keep track of the version distribution and then in the client alert the users of really old apps to upgrade so that you don't have to maintain really old versions of the application.
+The compiled Cordova files are saved in `[savePath]/[version]` directories. As you release new versions of your app some of the older versions of the client may still be installed on devices. Cordova Loader sends the version as a get variable in the request from the client. Cordova Loader uses this version to load the correct version of the compiled assets. Inside your app handling graceful versioning is up to you. The global variable `window.cordovaAppVersion` is avaialble to determine which version of the Cordova app the client is running and which features you can enable. It is important for you to bump the version as you release changes to the Cordova project to the app stores / production so that you have support for the older versions of your application. It would be a good idea to use an analytics platform to keep track of the version distribution and then in the client alert the users of really old apps to upgrade so that you don't have to maintain really old versions of the application.
 
 ================
 

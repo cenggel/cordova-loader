@@ -1,4 +1,4 @@
-Cordova Asset Compiler & Loader
+Cordova Loader
 ================
 
 ## Introduction

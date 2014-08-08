@@ -3,7 +3,7 @@ Cordova Asset Compiler & Loader
 
 ## Introduction
 
-Cordova Loader makes it easy to use Cordova with remotely served mobile applications. The compiler interprets the provided Cordova project directory and compiles the assets into minified, platform-specific, versioned JavaScript which is stored in memory. When the client loads, it automatically pulls in the platform-specific cordova code for that device. The Cordova API can be used the same as it is in the Cordova documentation. Cordova Loader was built for use in Meteor but will soon be able to be used by any Javascript/Node.js applcation. Enjoy!
+Cordova Loader makes it easy to use Cordova with remotely served mobile applications. The compiler interprets the provided Cordova project directory and compiles the assets into minified, platform-specific, versioned JavaScript which is loaded into memory and stored in versioned directories for production use / bundling. When the client loads, it automatically pulls in the platform-specific cordova code for that device. The Cordova API can be used the same as it is in the Cordova documentation. Cordova Loader was built for use in Meteor but will soon be able to be used by any Javascript/Node.js applcation. Enjoy!
 
 ![demo](https://raw.githubusercontent.com/andrewreedy/cordova-loader/master/screenshot.png)
 
@@ -18,7 +18,9 @@ Cordova Loader makes it easy to use Cordova with remotely served mobile applicat
 ================
 
 ##### NPM Package Installation
-Coming soon.
+````
+npm install cordova-loader
+````
 
 ================
 
@@ -45,7 +47,9 @@ mrt add cordova-loader
 * mode: Either production or development (default: development)
 * logging: This is optional. Just trying to give some transpency into the package. (default: true)
 * platforms: Array of platforms you are using  (required in development mode).
-* path: Path to your Cordova project directory (required in development mode).
+* cordovaPath: Path to your Cordova project directory (required in development mode).
+* savePath: Path to save the compiled assets (default: private/cordova).
+* loadPath: Path to load the compiled assets in production (default: assets/app/cordova).
 
 *Note: If you want to manually rerun the compiler just delete the private/cordova/[version]/[platform].js file you want to recompile.*
 

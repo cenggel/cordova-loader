@@ -16,7 +16,7 @@ Cordova Loader is a library for using Cordova with remotely served web applicati
 
 ================
 
-##### NPM Package Installation
+##### NPM Package Installation (Node.js / Express)
 ````Shell
 npm install cordova-loader
 ````

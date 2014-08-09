@@ -64,7 +64,8 @@ The compiled Cordova files are saved in `[savePath]/[version]` directories. As y
 ================
 
 ##### Offline Support
-As this package is just for compiling and loading Cordova assets, I will release an actual Cordova plugin which handles the graceful fallback and transition to offline mode with options. I'm already using it in my apps, but I need to clean it up a bit for release.
+As this package is just for compiling and loading Cordova assets, the offline supprt will be a Cordova plugin which handles the graceful fallback and transition to offline mode with options. 
+* [cordova-plugin-offline](https://github.com/andrewreedy/cordova-plugin-offline) - (We just started on this)
 
 ================
 

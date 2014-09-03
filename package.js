@@ -15,6 +15,10 @@ Package.on_use(function (api) {
       'webapp',
       'underscore'
     ], 'server');
+    
+    api.use([
+      'session'
+    ], 'client');
 
     api.add_files('lib/server.js', 'server');
     api.add_files('lib/client.js', 'client');

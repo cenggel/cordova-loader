@@ -1,6 +1,9 @@
 Cordova Loader
 ================
 
+## DEPRECATED FOR METEOR
+Meteor users should use the official Cordova integration documented here: https://github.com/meteor/meteor/wiki/Meteor-Cordova-Phonegap-integration
+
 ## Introduction
 Cordova Loader is a library for using Cordova with remotely served web applications. The compiler interprets the provided Cordova project directory and compiles the assets into minified, platform-specific, versioned files which are loaded into memory and stored in versioned directories for production use / bundling. When the client loads, it automatically pulls in the platform-specific file for that device. The Cordova API can be used the same as it is in the Cordova documentation. Cordova Loader was built for use with Meteor but is now available to be used by any Javascript/Node.js applcation through NPM. Enjoy!
 

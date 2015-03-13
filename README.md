@@ -1,11 +1,10 @@
 Cordova Loader
 ================
 
-## DEPRECATED FOR METEOR
-Meteor users should use the official Cordova integration documented here: https://github.com/meteor/meteor/wiki/Meteor-Cordova-Phonegap-integration
+*Note: I havent been using this but needs just a bit work work to be working with express.. if you want to work on it I can answer questions*
 
 ## Introduction
-Cordova Loader is a library for using Cordova with remotely served web applications. The compiler interprets the provided Cordova project directory and compiles the assets into minified, platform-specific, versioned files which are loaded into memory and stored in versioned directories for production use / bundling. When the client loads, it automatically pulls in the platform-specific file for that device. The Cordova API can be used the same as it is in the Cordova documentation. Cordova Loader was built for use with Meteor but is now available to be used by any Javascript/Node.js applcation through NPM. Enjoy!
+Cordova Loader is a library for using Cordova with remotely served web applications. The compiler interprets the provided Cordova project directory and compiles the assets into minified, platform-specific, versioned files which are loaded into memory and stored in versioned directories for production use / bundling. When the client loads, it automatically pulls in the platform-specific file for that device. The Cordova API can be used the same as it is in the Cordova documentation.
 
 ![demo](https://raw.githubusercontent.com/andrewreedy/cordova-loader/master/screenshot.png)
 
@@ -22,13 +21,6 @@ Cordova Loader is a library for using Cordova with remotely served web applicati
 ##### NPM Package Installation (Node.js / Express)
 ````Shell
 npm install cordova-loader
-````
-
-================
-
-##### Meteor Package Installation
-````Shell
-mrt add cordova-loader
 ````
 
 ================
@@ -63,25 +55,6 @@ The basic Cordova project setup is easy. Modify the `config.xml` file in the roo
 
 ##### Versioning
 The compiled Cordova files are saved in `[savePath]/[version]` directories. As you release new versions of your app some of the older versions of the client may still be installed on devices. Cordova Loader sends the version as a get variable in the request from the client. Cordova Loader uses this version to load the correct version of the compiled assets. Inside your app handling graceful versioning is up to you. The global variable `window.cordovaAppVersion` is avaialble to determine which version of the Cordova app the client is running and which features you can enable. It is important for you to bump the version as you release changes to the Cordova project to the app stores / production so that you have support for the older versions of your application. It would be a good idea to use an analytics platform to keep track of the version distribution and then in the client alert the users of really old apps to upgrade so that you don't have to maintain really old versions of the application.
-
-================
-
-##### Offline Support
-As this package is just for compiling and loading Cordova assets, the offline supprt will be a Cordova plugin which handles the graceful fallback and transition to offline mode with options. 
-* [cordova-plugin-offline](https://github.com/andrewreedy/cordova-plugin-offline) - (We just started on this)
-
-================
-
-## Meteor Companion Packages
-
-##### Appcache Extra
-* [appcache-extra](http://github.com/andrewreedy/meteor-appcache-extra) - It will cache the Cordova/platform file after it is loaded once and gives you a way to handle appcache reloads with better UX.
-
-##### Facebook Native SDK
-* [accounts-facebook-cordova](https://github.com/andrewreedy/meteor-accounts-facebook-cordova) - Works with the cordova plugin to use facebook single sign on when it exists otherwise use standar oauth package.
-
-##### Famo.us Integration
-* [celestial](https://github.com/andrewreedy/meteor-celestial) - Package to make using Famo.us with Meteor easier.
 
 ================
 

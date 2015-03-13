@@ -1,6 +1,6 @@
 {
   "name": "cordova-loader",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Cordova asset compiler and loader",
   "author": "Andrew Reedy <andrewrreedy@gmail.com>",
   "repository": {
